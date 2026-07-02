@@ -1,0 +1,14 @@
+{
+  "termField": "英単語",
+  "meaningField": "意味",
+  "dictionary": {
+    "primary": "英単語",
+    "secondary": "意味",
+    "searchFields": ["英単語", "意味", "関連語", "イディオム"],
+    "hiddenFields": ["id", "_updated"]
+  },
+  "quiz": {
+    "directions": ["term->meaning", "meaning->term"],
+    "types": ["self-grade"]
+  }
+}
