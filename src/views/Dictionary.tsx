@@ -22,6 +22,9 @@ export function Dictionary({
   return (
     <div className="mx-auto max-w-2xl p-4">
       <input
+        type="search"
+        name="search"
+        aria-label="単語を検索"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="検索（英単語・意味・関連語・イディオム）"

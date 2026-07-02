@@ -1,0 +1,17 @@
+{
+  "name": "hiyolingo 単語帳",
+  "short_name": "hiyolingo",
+  "description": "受験英単語の単語帳（辞書・クイズ）",
+  "start_url": "/hiyolingo/",
+  "scope": "/hiyolingo/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#4C6EF5",
+  "theme_color": "#4C6EF5",
+  "lang": "ja",
+  "icons": [
+    { "src": "pwa-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "pwa-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "maskable-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
