@@ -296,20 +296,21 @@ hiyolingo/
 
 ---
 
-## 9. マイルストーン
+## 9. マイルストーン（状態: 2026-07-03 更新）
 
-| # | 内容 | 完了条件 |
+| # | 内容 | 状態 |
 |---|---|---|
-| **M0** | リポジトリ初期化・設計合意 | 本書に合意、git init |
-| **M1** | 辞書モード（手動 words.json で） | サンプルデータで一覧・検索・詳細が動く |
-| **M2** | クイズモード | 表裏・双方向・自己採点が動く |
-| **M3** | 同期パイプライン | Notion→Actions→words.json 自動化、手動データを置換 |
-| **M4** | PWA 化 | ホーム追加・オフライン閲覧 |
-| **M5** | enrichment 方式A | カスタムGPTから Notion に書き込める |
-| 後 | スペルクイズ / SRS / 多言語 / 統計 | 各拡張点に追加 |
+| **M0** | リポジトリ初期化・設計合意 | ✅ 完了 |
+| **M1** | 辞書モード（一覧・検索・詳細、カラム自動追従・NULL寛容） | ✅ 完了 |
+| **M2** | クイズモード（表裏・日英双方向/ミックス・自己採点） | ✅ 完了。**当初スコープ超**で「タグ/レベル絞り込み（config駆動）」「続きから再開（localStorage・同一端末）」「あやしいだけ再挑戦」も実装 |
+| **Deploy/CI** | GitHub Pages 公開・push で自動デプロイ | ✅ 完了（https://kajisaden.github.io/hiyolingo/）|
+| **PWA** | アイコン・manifest・インストール可能 | 🔶 一部（ひよこアイコン/manifest/standalone ✅、**オフラインSW 未**）|
+| **M3** | 同期パイプライン＋enrichment方式A | ⬜ 未着手（次の大物）。Notion→Actions→words.json、カスタムGPT＋Notion Action |
+| **M4** | PWA オフライン化（Service Worker） | ⬜ 未着手（`vite-plugin-pwa`）|
+| 後 | スペルクイズ / SRS / 多言語 / 統計 / クロス端末再開 | ⬜ 各拡張点に追加 |
 
-**方針**：M1→M2 を**手動で用意した `words.json`** で先に完成させ、画面を最短で立ち上げる。
-その後 M3 で自動同期に差し替える（enrichment 方式Aは並行してあなたが設定）。
+**現状の要点**：M1/M2 は**サンプル `public/data/words.json`** で動作中。M3 で実データ（Notion 同期）へ切替。
+テストは vitest（`src/**/*.test.ts`、ロジックはTDD）で 34 件 green。引継ぎは [`docs/HANDOFF.md`](HANDOFF.md)。
 
 ---
 
