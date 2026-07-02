@@ -45,3 +45,5 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000 # 30分。既定10分だと障害時の遅延デプロイで落ちるため延長
