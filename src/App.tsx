@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import type { Config, WordsFile } from './lib/types'
 import { loadData } from './lib/data'
 import { Dictionary } from './views/Dictionary'
+import { Quiz } from './views/Quiz'
 
 type Tab = 'dict' | 'quiz'
 
@@ -60,9 +61,7 @@ export default function App() {
         <Dictionary data={state.words} config={state.config} />
       )}
       {state && tab === 'quiz' && (
-        <p className="p-8 text-center text-slate-500">
-          クイズモードは M2 で実装予定。
-        </p>
+        <Quiz data={state.words} config={state.config} />
       )}
 
       {state && (

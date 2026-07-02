@@ -9,6 +9,7 @@
   },
   "quiz": {
     "directions": ["term->meaning", "meaning->term"],
-    "types": ["self-grade"]
+    "types": ["self-grade"],
+    "filterFields": ["タグ", "レベル"]
   }
 }

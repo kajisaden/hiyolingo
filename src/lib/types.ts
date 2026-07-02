@@ -61,5 +61,7 @@ export interface Config {
   quiz: {
     directions: Array<'term->meaning' | 'meaning->term'>
     types: string[]
+    /** 絞り込み対象カラム。カラム駆動で拡張可能（UIは当面この配列の先頭数個だけ出す）。 */
+    filterFields?: string[]
   }
 }
