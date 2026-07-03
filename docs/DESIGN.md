@@ -305,12 +305,12 @@ hiyolingo/
 | **M2** | クイズモード（表裏・日英双方向/ミックス・自己採点） | ✅ 完了。**当初スコープ超**で「タグ/レベル絞り込み（config駆動）」「続きから再開（localStorage・同一端末）」「あやしいだけ再挑戦」も実装 |
 | **Deploy/CI** | GitHub Pages 公開・push で自動デプロイ | ✅ 完了（https://kajisaden.github.io/hiyolingo/）|
 | **PWA** | アイコン・manifest・インストール可能 | 🔶 一部（ひよこアイコン/manifest/standalone ✅、**オフラインSW 未**）|
-| **M3** | 同期パイプライン＋enrichment方式A | ⬜ 未着手（次の大物）。Notion→Actions→words.json、カスタムGPT＋Notion Action |
+| **M3** | 同期パイプライン＋enrichment方式A | 🔶 コード実装完了（normalize/build/sync-notion.mjs・sync.yml・data.ts切替・gpt-action.md、TDD）。**実データ疎通は未**（Notion DB＋Secrets 準備後に手動確認）|
 | **M4** | PWA オフライン化（Service Worker） | ⬜ 未着手（`vite-plugin-pwa`）|
 | 後 | スペルクイズ / SRS / 多言語 / 統計 / クロス端末再開 | ⬜ 各拡張点に追加 |
 
-**現状の要点**：M1/M2 は**サンプル `public/data/words.json`** で動作中。M3 で実データ（Notion 同期）へ切替。
-テストは vitest（`src/**/*.test.ts`、ロジックはTDD）で 34 件 green。引継ぎは [`docs/HANDOFF.md`](HANDOFF.md)。
+**現状の要点**：M3 の同期パイプライン＋手順書はコード実装完了（main にマージ済み・未push）。DEV=サンプル/PROD=raw の切替も実装済み。**実データはまだサンプル5語**で、Notion DB・Secrets 準備後に実同期で切替。
+テストは vitest（`src/**/*.test.ts` ＋ `scripts/**/*.test.mjs`、ロジックはTDD）で **58 件 green**。M3設計は [`docs/specs/2026-07-03-m3-notion-sync-design.md`](specs/2026-07-03-m3-notion-sync-design.md)、実装計画は [`docs/superpowers/plans/2026-07-03-m3-notion-sync.md`](superpowers/plans/2026-07-03-m3-notion-sync.md)。引継ぎは [`docs/HANDOFF.md`](HANDOFF.md)。
 
 ---
 

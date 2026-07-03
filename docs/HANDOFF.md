@@ -21,8 +21,8 @@
 ## 1. 現在地
 
 - ✅ **M0/M1/M2 完了**、**GitHub Pages 自動デプロイ完了**、**PWA 一部**（アイコン/manifest/installable。オフラインSWは未）
-- ⬜ **次の大物は M3（実データ接続）**。今はデータが**サンプル5語**（`public/data/words.json`）。
-- テスト **34件 green**（vitest）、型チェッククリーン、本番URLで実描画・コンソールエラー0を確認済み。
+- 🔶 **M3（実データ接続）＝コード実装完了・main にマージ済み（未push）**。同期パイプライン（normalize/build/sync-notion.mjs・sync.yml）、取得元切替（DEV=サンプル/PROD=raw、`data.ts`）、手順書 `docs/gpt-action.md` まで。**実データ疎通は未**（ユーザーの Notion 準備＋GitHub Secrets 後に手動確認）。データは当面**サンプル5語**（`public/data/words.json` と初期化した `data/words.json`）。
+- テスト **58件 green**（vitest、`src/**` ＋ `scripts/**`）、型チェッククリーン、ビルドOK。本番URLでの実描画・コンソールエラー0は M2 まで確認済み。
 
 ---
 
@@ -31,7 +31,7 @@
 ```bash
 npm install
 npm run dev         # 開発サーバ（http://localhost:5173/hiyolingo/）
-npm test            # vitest（ロジックのユニットテスト 34件）
+npm test            # vitest（ロジックのユニットテスト 58件、src/** ＋ scripts/**）
 npm run typecheck   # tsc --noEmit
 npm run build       # 本番ビルド → dist/
 npm run preview     # dist を配信（--port 4173 等）
@@ -47,16 +47,21 @@ node scripts/gen-icons.mjs   # SVG→PNG アイコン再生成（sharp 使用）
 
 ```
 src/
-  lib/         data.ts(取得) / schema.ts(NULL判定・表示・検索・クイズ対象) / types.ts / (render は components)
+  lib/         data.ts(取得・DEV/PROD切替) / wordsUrl.ts(取得URL・TDD) / schema.ts / types.ts
   views/       Dictionary.tsx / Quiz.tsx
   quiz/        filter.ts / deck.ts / session.ts / storage.ts（＋各 *.test.ts）/ types.ts   ← M2ロジック(TDD)
   components/  FieldValueView.tsx（型別レンダラ）
+scripts/
+  notion/      normalize.mjs / build.mjs（＋各 *.test.mjs）  ← M3同期の純粋ロジック(TDD)
+  sync-notion.mjs（Notion→data/words.json のIO層）/ gen-icons.mjs
 public/
-  data/        config.json（役割マップ＋filterFields）/ words.json（★サンプル）
+  data/        config.json（役割マップ＋filterFields）/ words.json（★開発用サンプル）
   icon.svg / icon-maskable.svg / *.png / manifest.webmanifest
-scripts/gen-icons.mjs
-.github/workflows/deploy.yml
-docs/DESIGN.md（設計の正）/ HANDOFF.md（本書）
+data/          words.json（★本番データ。sync が上書き。PROD は raw で取得）
+.github/workflows/  deploy.yml / sync.yml（cron15分＋手動でNotion同期）
+docs/          DESIGN.md（技術設計の正）/ HANDOFF.md（本書）/ gpt-action.md（enrichment手順）
+  specs/              2026-07-03-m3-notion-sync-design.md（M3設計）
+  superpowers/plans/  2026-07-03-m3-notion-sync.md（M3実装計画）
 ```
 
 ---
@@ -64,13 +69,12 @@ docs/DESIGN.md（設計の正）/ HANDOFF.md（本書）
 ## 4. 動かし方の要点・地雷（gotchas）
 
 - **base path は `/hiyolingo/`**（`vite.config.ts`）。プロジェクトページのため。HTML内の絶対パスも `/hiyolingo/...`。
-- **データ取得は現状“同一オリジン”** `${import.meta.env.BASE_URL}data/words.json`（＝`public/data`）。
-  M3 で **Notion 同期データへ切替**予定。切替点は **`src/lib/data.ts` の URL 定数1箇所**（DESIGN §5.4）。
+- **words 取得は DEV/PROD で切替済み**（M3）：DEV=`${BASE_URL}data/words.json`（`public/data` の同梱サンプル）、PROD=`raw.githubusercontent.com/kajisaden/hiyolingo/main/data/words.json`。ロジックは `src/lib/wordsUrl.ts`（`buildWordsUrl`）、配線は `src/lib/data.ts`。config は同梱のまま（`public/data/config.json`）。
 - **自動デプロイ**：`main` へ push → `deploy.yml` がビルド→Pages公開。`data/**`・`docs/**`・`README.md` だけの変更では**再デプロイしない**（`paths-ignore`）。
 - **GitHub Pages 障害の履歴**：2026-07-02 に Pages デプロイ障害があり、`deploy-pages` が `deployment_queued` のまま10分でタイムアウト→失敗した。復旧後に成功。対策として **`deploy-pages` の timeout を 30分**に延長済み。※GitHub Status のコンポーネント名は **`Pages`**（`GitHub Pages` ではない）。監視スクリプトを書くなら注意。
 - **sharp** は devDependency（アイコン生成専用）。ビルド自体には不要だが `npm ci` で入る。
 - **CRLF 警告**（`LF will be replaced by CRLF`）は Windows の autocrlf によるもので**無害**。
-- **テスト**：vitest、`environment: node`、対象 `src/**/*.test.ts`。**ロジックは TDD 必須**（ユーザー方針、RED→GREEN厳守）。**UI は chrome-devtools MCP でブラウザ駆動**して確認する運用。
+- **テスト**：vitest、`environment: node`、対象 `src/**/*.test.ts` ＋ `scripts/**/*.test.mjs`（M3で拡張・`vite.config.ts`）。**ロジックは TDD 必須**（ユーザー方針、RED→GREEN厳守）。**UI は chrome-devtools MCP でブラウザ駆動**して確認する運用。
 - **クイズ再開の保存キー**：`localStorage` の `hiyolingo.quiz.session.v1`。
 
 ---
@@ -85,23 +89,22 @@ docs/DESIGN.md（設計の正）/ HANDOFF.md（本書）
 
 ---
 
-## 6. 次にやる：M3（実データ接続）— 段取り
+## 6. 次にやる：M3 の実データ疎通（コードは実装済み）
 
-**ユーザー側の準備（対話で確認してから着手）**
-- Notion に「英単語帳」DB を作成。列：`英単語 / 意味 / 品詞 / 関連語 / イディオム(任意) / 例文 / Tips / レベル / タグ`。
-- Notion 内部インテグレーション作成 → 対象DBを共有 → トークン取得。
-- GitHub Secrets に `NOTION_TOKEN` と `NOTION_DATABASE_ID` を登録。
+**M3 のコードは main にマージ済み**（`scripts/notion/normalize.mjs`・`build.mjs`、`scripts/sync-notion.mjs`、`.github/workflows/sync.yml`、`src/lib/wordsUrl.ts`＋`data.ts` 切替、`data/words.json` 初期化、`docs/gpt-action.md`）。残りは**ユーザーの Notion 準備＋手動の疎通確認**。手順の詳細は **`docs/gpt-action.md`**、実装計画は `docs/superpowers/plans/2026-07-03-m3-notion-sync.md`。
 
-**実装（TDDで）**
-1. `scripts/sync-notion.mjs`：Notion API（クエリ/ページネーション）→ **§4.3 の型正規化** → `words.json` 生成 → 差分あれば commit。
-2. `.github/workflows/sync.yml`：`schedule`（**cron 15分**）＋`workflow_dispatch`、`permissions: contents:write`、Secrets 参照。
-3. **データ取得元の切替**：`public/data/words.json`（サンプル）→ 同期が更新するデータへ。DESIGN §5.4 は「リポジトリ直下 `data/` に commit → アプリは `raw.githubusercontent.com` から runtime 取得（キャッシュバスト）」。`src/lib/data.ts` を変更。
-4. 「↻ 同期」ボタンの実挙動確認（今は JSON 再取得。即時同期は GitHub の workflow_dispatch へのリンク等、任意）。
+**ユーザー側の準備（`docs/gpt-action.md` に沿って）**
+- Notion に「英単語帳」DB作成（列：`英単語 / 意味 / 品詞 / 関連語 / イディオム(任意) / 例文 / Tips / レベル / タグ`）。※全権整理とは分け、この DB は聖域（列名変更・作り直しをしない。列の追加は可）。
+- 内部インテグレーション作成 → 対象DBを共有 → トークン取得。
+- GitHub Secrets に `NOTION_TOKEN` / `NOTION_DATABASE_ID` を登録。
+- カスタムGPT に Notion Action（`POST /v1/pages`）を設定 → 妹に限定リンク共有。
 
-**enrichment 方式A（別途、ユーザー主体でセットアップ）**
-- カスタムGPT に Action（`https://api.notion.com`、Bearer トークン、`Notion-Version` ヘッダ、`POST /v1/pages`）。
-- GPT へ「英単語→意味/品詞/関連語/イディオム/例文/Tips を生成し、不明は空のまま Notion に create」を指示。
-- **private リンクで妹にだけ共有**。トークンは対象DBのみに権限。漏洩時はローテーション。手順は `docs/gpt-action.md`（未作成）に切り出す予定。
+**手動の疎通確認（準備後）**
+1. ローカル：`NOTION_TOKEN=... NOTION_DATABASE_ID=... node scripts/sync-notion.mjs` → `data/words.json` 生成。2回目は「変化なし」。
+2. GitHub：Secrets 登録後、Actions で `sync.yml` を手動実行（Run workflow）→ 差分コミットを確認。
+3. push すると `data.ts` 切替が本番反映（取得元が raw に）。以降は sync が `data/words.json` を更新するだけでアプリに反映（再ビルド不要）。
+
+**所有モデル（確定）**：Notion DB＝ユーザー所有・妹にゲスト共有。妹は ChatGPT Plus で共有GPTから書き込み、PWAで閲覧。hiyolingo 用の合鍵は「英単語帳」DBだけに絞る（全権整理用の合鍵とは別・DBは聖域）。
 
 ---
 
@@ -130,5 +133,7 @@ docs/DESIGN.md（設計の正）/ HANDOFF.md（本書）
 ## 9. 直近の git 状態（本書コミット時点）
 
 - ブランチ `main` / origin = `https://github.com/kajisaden/hiyolingo`（public）
-- 主要コミット（新しい順）: `M2 クイズモード` → `CI deploy timeout` → `CI Pages deploy` → `アイコン/PWA` → `M1 辞書`
-- デプロイは成功済み、Live 反映済み。
+- **main は origin より先行・未 push**（M3 一式：設計/計画/実装）。push は**ユーザー指示待ち**。push すると `data.ts` 等のコード変更で **Pages 再デプロイが走る**点に注意。
+- 主要コミット（新しい順・抜粋）: `M3 予約キーガード等（最終レビュー対応）` → `M3 gpt-action.md` → `M3 sync.yml` → `M3 data取得元切替` → `M3 sync-notion.mjs` → `M3 build/差分` → `M3 normalize` → `docs: M3実装計画` → `docs: M3設計書` → `M2 クイズモード` …
+- M3 実装は feature ブランチ `m3-notion-sync` で TDD＋レビュー → main に ff マージ・ブランチ削除済み。
+- 進捗台帳（scratch・untracked）: `.superpowers/sdd/progress.md`。
