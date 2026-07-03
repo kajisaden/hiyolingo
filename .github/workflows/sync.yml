@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: sync-notion
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest

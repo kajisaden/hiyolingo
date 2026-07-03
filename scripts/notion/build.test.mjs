@@ -79,3 +79,30 @@ describe('buildWordsFile の順序安定化', () => {
     expect(hasContentChanged(a, b)).toBe(false)
   })
 })
+
+describe('normalizePage の予約キーガード', () => {
+  it('id/_updated という名の列があっても page.id と更新時刻を上書きしない', () => {
+    const page = {
+      id: 'real-id',
+      last_edited_time: '2026-07-02T00:00:00.000Z',
+      properties: {
+        id: { type: 'rich_text', rich_text: [{ plain_text: 'にせID' }] },
+        _updated: { type: 'rich_text', rich_text: [{ plain_text: 'にせ更新' }] },
+        英単語: { type: 'title', title: [{ plain_text: 'x' }] },
+      },
+    }
+    const { record, warnings } = normalizePage(page)
+    expect(record.id).toBe('real-id')
+    expect(record._updated).toBe('2026-07-02T00:00:00.000Z')
+    expect(record.英単語).toBe('x')
+    expect(warnings.some((w) => w.includes('予約キー'))).toBe(true)
+  })
+})
+
+describe('hasContentChanged のキー順非依存', () => {
+  it('同一内容でキーの順序だけ違う場合は変化なし', () => {
+    const a = { meta: { generatedAt: 'X', count: 1, source: 'notion' }, words: [{ id: 'p1', 英単語: 'a', 意味: 'あ' }] }
+    const b = { meta: { source: 'notion', count: 1, generatedAt: 'Y' }, words: [{ 意味: 'あ', 英単語: 'a', id: 'p1' }] }
+    expect(hasContentChanged(a, b)).toBe(false)
+  })
+})

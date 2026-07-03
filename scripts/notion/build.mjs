@@ -14,6 +14,11 @@ export function normalizePage(page) {
   const record = { id: page.id }
   const warnings = []
   for (const [key, prop] of Object.entries(page.properties ?? {})) {
+    // id / _updated は内部予約キー。同名の列があっても上書きせず warning に記録する。
+    if (key === 'id' || key === '_updated') {
+      warnings.push(`${key}: 予約キーと同名の列は無視しました`)
+      continue
+    }
     const { value, warning } = normalizeValue(prop)
     record[key] = value
     if (warning) warnings.push(`${key}: ${warning}`)
@@ -42,9 +47,24 @@ export function buildWordsFile({ database, pages, generatedAt }) {
   }
 }
 
-// meta.generatedAt を除いた内容が変わったか。変化時 true。
+// オブジェクトのキーを再帰的にソートして安定な文字列化を行う（キー順に依存しない比較のため）。
+function stableStringify(value) {
+  return JSON.stringify(value, (_key, v) => {
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      return Object.keys(v)
+        .sort()
+        .reduce((acc, k) => {
+          acc[k] = v[k]
+          return acc
+        }, {})
+    }
+    return v
+  })
+}
+
+// meta.generatedAt を除いた内容が変わったか。変化時 true。キー順には依存しない。
 export function hasContentChanged(oldFile, newFile) {
   if (oldFile == null) return true
-  const strip = (f) => JSON.stringify({ ...f, meta: { ...f.meta, generatedAt: null } })
+  const strip = (f) => stableStringify({ ...f, meta: { ...f.meta, generatedAt: null } })
   return strip(oldFile) !== strip(newFile)
 }
