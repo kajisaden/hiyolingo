@@ -1,0 +1,37 @@
+name: Sync Notion → words.json
+
+# cron は15分ごと＋手動実行。※public リポジトリの schedule は
+# 60日間コミットが無いと自動停止する仕様。長期間変化が無い場合は
+# 時々「Run workflow」を手動実行して回避する。
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Notion を同期
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: node scripts/sync-notion.mjs
+      - name: 差分があればコミット
+        run: |
+          if [ -n "$(git status --porcelain data/words.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/words.json
+            git commit -m "data: Notion同期でwords.jsonを更新"
+            git push
+          else
+            echo "変化なし。コミットしません。"
+          fi
