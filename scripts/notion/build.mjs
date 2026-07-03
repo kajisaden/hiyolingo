@@ -33,6 +33,9 @@ export function buildWordsFile({ database, pages, generatedAt }) {
     words.push(record)
     warnings.forEach((w) => warningSet.add(w))
   }
+  // Notion のクエリはページ順を保証しないため、id 昇順で決定化する
+  // （内容不変なのに順序差で差分検知されるのを防ぐ）。
+  words.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
   return {
     meta: { generatedAt, source: 'notion', count: words.length, fields, warnings: [...warningSet] },
     words,

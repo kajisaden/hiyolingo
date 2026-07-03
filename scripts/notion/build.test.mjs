@@ -59,3 +59,23 @@ describe('hasContentChanged', () => {
     expect(hasContentChanged(null, { meta: {}, words: [] })).toBe(true)
   })
 })
+
+describe('buildWordsFile の順序安定化', () => {
+  const database = { properties: { 英単語: { type: 'title' } } }
+  const mk = (id) => ({
+    id,
+    last_edited_time: 't',
+    properties: { 英単語: { type: 'title', title: [{ plain_text: id }] } },
+  })
+
+  it('words を id 昇順に並べる（page順に依存しない）', () => {
+    const file = buildWordsFile({ database, pages: [mk('p2'), mk('p1')], generatedAt: 'G' })
+    expect(file.words.map((w) => w.id)).toEqual(['p1', 'p2'])
+  })
+
+  it('同一内容が異なるpage順でも差分なし', () => {
+    const a = buildWordsFile({ database, pages: [mk('p1'), mk('p2')], generatedAt: 'X' })
+    const b = buildWordsFile({ database, pages: [mk('p2'), mk('p1')], generatedAt: 'Y' })
+    expect(hasContentChanged(a, b)).toBe(false)
+  })
+})
