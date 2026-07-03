@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "generatedAt": "2026-07-03T09:00:00Z",
+    "source": "sample",
+    "count": 5,
+    "fields": [
+      { "key": "英単語", "type": "title" },
+      { "key": "意味", "type": "rich_text" },
+      { "key": "品詞", "type": "select" },
+      { "key": "関連語", "type": "multi_select" },
+      { "key": "イディオム", "type": "rich_text" },
+      { "key": "例文", "type": "rich_text" },
+      { "key": "Tips", "type": "rich_text" },
+      { "key": "レベル", "type": "number" },
+      { "key": "タグ", "type": "multi_select" }
+    ],
+    "warnings": []
+  },
+  "words": [
+    {
+      "id": "sample-1",
+      "英単語": "ubiquitous",
+      "意味": "どこにでもある、遍在する",
+      "品詞": "形容詞",
+      "関連語": ["omnipresent", "universal"],
+      "イディオム": null,
+      "例文": "Smartphones are now ubiquitous.",
+      "Tips": "ubi-（どこでも）が語源。",
+      "レベル": 3,
+      "タグ": ["難関大"],
+      "_updated": "2026-07-01T12:00:00Z"
+    },
+    {
+      "id": "sample-2",
+      "英単語": "candid",
+      "意味": "率直な、遠慮のない",
+      "品詞": "形容詞",
+      "関連語": [],
+      "イディオム": null,
+      "例文": null,
+      "Tips": null,
+      "レベル": 2,
+      "タグ": [],
+      "_updated": "2026-07-02T08:00:00Z"
+    },
+    {
+      "id": "sample-3",
+      "英単語": "get over",
+      "意味": "克服する、乗り越える",
+      "品詞": "句動詞",
+      "関連語": ["overcome", "recover from"],
+      "イディオム": "get over it（気にするな）",
+      "例文": "It took her a while to get over the flu.",
+      "Tips": "over に「越えて」の含意。",
+      "レベル": 1,
+      "タグ": ["熟語"],
+      "_updated": "2026-07-02T09:00:00Z"
+    },
+    {
+      "id": "sample-4",
+      "英単語": "meticulous",
+      "意味": "細心の、几帳面な",
+      "品詞": "形容詞",
+      "関連語": ["thorough", "scrupulous"],
+      "イディオム": null,
+      "例文": "He is meticulous about details.",
+      "Tips": null,
+      "レベル": 4,
+      "タグ": ["難関大"],
+      "_updated": "2026-07-03T01:00:00Z"
+    },
+    {
+      "id": "sample-5",
+      "英単語": "abandon",
+      "意味": "見捨てる、放棄する",
+      "品詞": "動詞",
+      "関連語": ["desert", "give up"],
+      "イディオム": null,
+      "例文": null,
+      "Tips": "受験頻出の多義語。",
+      "レベル": 1,
+      "タグ": [],
+      "_updated": "2026-07-01T10:00:00Z"
+    }
+  ]
+}
