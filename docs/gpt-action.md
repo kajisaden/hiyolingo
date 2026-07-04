@@ -3,7 +3,15 @@
 > 妹が単語を言うと、カスタムGPT が意味などを生成して Notion に登録する仕組み。
 > あなた（管理者）が一度だけ設定する。関連: [`docs/specs/2026-07-03-m3-notion-sync-design.md`](specs/2026-07-03-m3-notion-sync-design.md)
 
-## 1. Notion に「英単語帳」DB を作る（列＝種類）
+> **状況（2026-07-04）**: 手順1〜3（DB作成・インテグレーション・Secrets）は完了。実データ疎通も確認済み（Notion に入れた語が sync で `data/words.json` に反映）。残るは **手順4〜6（妹用カスタムGPTのAction設定）** のみ。
+
+## 1. Notion の「英語」DB（作成済み）
+
+最上位ページ **Hiyolingo** 配下に、教科別DBの1つ目として **「英語」DB** を作成済み。今後 `古文`・`世界史` などを兄弟DBとして追加していく構成。
+
+- **database_id**: `81206d9d3f0847c09780edb5ce8f44c5`（GitHub Secrets `NOTION_DATABASE_ID` / GPT Action の `database_id` に使う固定値）
+
+列（種類）:
 
 | 列名 | Notion の種類 | 役割 |
 |---|---|---|
@@ -17,19 +25,19 @@
 | レベル | 数値 | 難易度（クイズ絞り込み） |
 | タグ | マルチセレクト | 分類（クイズ絞り込み） |
 
-> ⚠️ 列名は変えない・DBを作り直さない（アプリの設定がこの名前を参照）。列の追加は自由。
+> ⚠️ 列名は変えない・DBを作り直さない（アプリの設定がこの名前を参照）。列の追加は自由。DB名自体は同期に無関係（`NOTION_DATABASE_ID` で特定するため）。
 
-## 2. インテグレーション（合鍵）を作り、DBに共有
+## 2. インテグレーション（合鍵）を作り、DBに共有（完了済み）
 
-1. Notion の「My integrations」で内部インテグレーションを作成 → **Internal Integration Token** を控える。
-2. 「英単語帳」DB のページで **Connections → 作ったインテグレーションを追加**（この DB だけに権限）。
-3. DB の **ID** を控える（DB を開いた URL の `notion.so/xxxx?v=...` の `xxxx` 32桁）。
+1. Notion の「My integrations」で内部インテグレーション `Hiyolingo` を作成 → **Internal Integration Token** を控える（権限は Read + Insert のみ / ユーザー情報なし）。
+2. **Hiyolingo** ページで **Connections → `Hiyolingo` を追加**（配下の「英語」DBに継承）。※ClaudeCode 接続は外し、この DB は Hiyolingo 接続のみに分離済み。
+3. DB の **ID** = `81206d9d3f0847c09780edb5ce8f44c5`。
 
-## 3. GitHub Secrets に登録（同期用）
+## 3. GitHub Secrets に登録（完了済み）
 
-リポジトリ → Settings → Secrets and variables → Actions → New repository secret:
-- `NOTION_TOKEN` = インテグレーションのトークン
-- `NOTION_DATABASE_ID` = DB の ID
+リポジトリ → Settings → Secrets and variables → Actions:
+- `NOTION_TOKEN` = `Hiyolingo` インテグレーションのトークン ✅ 登録済み
+- `NOTION_DATABASE_ID` = `81206d9d3f0847c09780edb5ce8f44c5` ✅ 登録済み
 
 ## 4. カスタムGPT に Notion Action を設定（書き込み用）
 
@@ -47,7 +55,7 @@ paths:
   /v1/pages:
     post:
       operationId: createWord
-      summary: 英単語帳DBに1語を登録
+      summary: 英語DBに1語を登録
       requestBody:
         required: true
         content:
@@ -99,10 +107,10 @@ createWord の body は必ず次の形にします（database_id は下記固定
 
 ## 6. 妹に渡す
 - GPT を「リンクを知っている人」で共有し、**妹だけに私的に**渡す。
-- （任意）「英単語帳」DB を妹に**ゲスト共有**すると、iPad から直接閲覧・編集も可能。
+- （任意）「英語」DB を妹に**ゲスト共有**すると、iPad から直接閲覧・編集も可能。
 
 ## 7. セキュリティ
 - GPT のリンクを知る人はこの DB に書ける → **家族内だけの私的リンク**運用。
-- トークンは「英単語帳」DB だけに権限を絞る。
+- トークンは「英語」DB（Hiyolingo配下）だけに権限を絞る。
 - 漏洩時は Notion でトークンを再発行すれば古いトークンは即失効。GitHub Secrets と GPT Action の両方を更新する。
 - **合鍵の本数:** まずは1本（読み書き兼用）で開始し、より厳密にするなら「読む用（Secrets）」と「書く用（GPT）」で2本に分ける。

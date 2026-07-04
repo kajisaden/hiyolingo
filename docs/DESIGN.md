@@ -26,7 +26,7 @@
 カスタムGPT「単語登録くん」(GPT Plus) に単語を伝える
   │  GPTが 意味/品詞/関連語/Tips 等を生成し…
   ▼  Action 経由で Notion API を叩いて書き込み（= enrichment 方式A）
-Notion DB「英単語帳」  ← 単語データの唯一の正。iPhone/iPad どちらからでも閲覧・編集可
+Notion DB「英語」(Hiyolingo配下)  ← 単語データの唯一の正。iPhone/iPad どちらからでも閲覧・編集可
   │
   ▼  GitHub Actions（定期 + 手動）が Notion API で取得 → words.json 生成 → commit
 リポジトリ (main): data/words.json
@@ -47,7 +47,7 @@ enrichment の方式を将来変えても（A→B→C）、ツール本体は無
 | レイヤ | 実体 | 役割 | 費用 |
 |---|---|---|---|
 | 入力 | カスタムGPT + Notion Action | 単語を enrich して Notion に書き込む | 無料（Plus定額＋Notion API無料）|
-| 正データ | Notion DB「英単語帳」 | 単語データの source of truth | 無料 |
+| 正データ | Notion DB「英語」（Hiyolingo配下・教科別に増設可） | 単語データの source of truth | 無料 |
 | 同期 | GitHub Actions（cron + workflow_dispatch）| Notion → `words.json` → commit | 無料（public repo）|
 | 配信 | GitHub Pages | 静的PWAのホスティング | 無料 |
 | 閲覧 | フロント（Vite + React + TS）| 辞書・クイズ UI | 無料 |
@@ -305,11 +305,11 @@ hiyolingo/
 | **M2** | クイズモード（表裏・日英双方向/ミックス・自己採点） | ✅ 完了。**当初スコープ超**で「タグ/レベル絞り込み（config駆動）」「続きから再開（localStorage・同一端末）」「あやしいだけ再挑戦」も実装 |
 | **Deploy/CI** | GitHub Pages 公開・push で自動デプロイ | ✅ 完了（https://kajisaden.github.io/hiyolingo/）|
 | **PWA** | アイコン・manifest・インストール可能 | 🔶 一部（ひよこアイコン/manifest/standalone ✅、**オフラインSW 未**）|
-| **M3** | 同期パイプライン＋enrichment方式A | 🔶 コード実装完了（normalize/build/sync-notion.mjs・sync.yml・data.ts切替・gpt-action.md、TDD）。**実データ疎通は未**（Notion DB＋Secrets 準備後に手動確認）|
+| **M3** | 同期パイプライン＋enrichment方式A | ✅ ほぼ完了。コード＋push＋**実データ疎通確認済み(2026-07-04)**（Notion「英語」DB→sync→`data/words.json`）。残り：妹用カスタムGPTのAction設定（`docs/gpt-action.md` 手順4〜6）|
 | **M4** | PWA オフライン化（Service Worker） | ⬜ 未着手（`vite-plugin-pwa`）|
 | 後 | スペルクイズ / SRS / 多言語 / 統計 / クロス端末再開 | ⬜ 各拡張点に追加 |
 
-**現状の要点**：M3 の同期パイプライン＋手順書はコード実装完了（main にマージ済み・未push）。DEV=サンプル/PROD=raw の切替も実装済み。**実データはまだサンプル5語**で、Notion DB・Secrets 準備後に実同期で切替。
+**現状の要点**：M3 の同期パイプラインは push 済みで **本番稼働**（2026-07-04 に実データ疎通確認）。Notion 最上位「Hiyolingo」配下の教科別DB（1つ目=「英語」/ `database_id=81206d9d3f0847c09780edb5ce8f44c5`）を唯一の正とし、`sync.yml`（cron15分＋手動）が `data/words.json` を更新。DEV=サンプル/PROD=raw の切替も実装済み。残るは妹用カスタムGPTのAction設定。
 テストは vitest（`src/**/*.test.ts` ＋ `scripts/**/*.test.mjs`、ロジックはTDD）で **58 件 green**。M3設計は [`docs/specs/2026-07-03-m3-notion-sync-design.md`](specs/2026-07-03-m3-notion-sync-design.md)、実装計画は [`docs/superpowers/plans/2026-07-03-m3-notion-sync.md`](superpowers/plans/2026-07-03-m3-notion-sync.md)。引継ぎは [`docs/HANDOFF.md`](HANDOFF.md)。
 
 ---

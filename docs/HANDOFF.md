@@ -21,7 +21,7 @@
 ## 1. 現在地
 
 - ✅ **M0/M1/M2 完了**、**GitHub Pages 自動デプロイ完了**、**PWA 一部**（アイコン/manifest/installable。オフラインSWは未）
-- 🔶 **M3（実データ接続）＝コード実装完了・main にマージ済み（未push）**。同期パイプライン（normalize/build/sync-notion.mjs・sync.yml）、取得元切替（DEV=サンプル/PROD=raw、`data.ts`）、手順書 `docs/gpt-action.md` まで。**実データ疎通は未**（ユーザーの Notion 準備＋GitHub Secrets 後に手動確認）。データは当面**サンプル5語**（`public/data/words.json` と初期化した `data/words.json`）。
+- ✅ **M3（実データ接続）＝push済み・本番稼働**。同期パイプライン（normalize/build/sync-notion.mjs・sync.yml）、取得元切替（DEV=サンプル/PROD=raw、`data.ts`）、手順書 `docs/gpt-action.md`。**実データ疎通確認済み(2026-07-04)**：Notion「英語」DB（Hiyolingo配下 / `database_id=81206d9d3f0847c09780edb5ce8f44c5`）→ `sync.yml`（cron15分＋手動）→ `data/words.json`。Secrets（`NOTION_TOKEN`/`NOTION_DATABASE_ID`）登録済み。残り：妹用カスタムGPTのAction設定（`docs/gpt-action.md` 手順4〜6）。
 - テスト **58件 green**（vitest、`src/**` ＋ `scripts/**`）、型チェッククリーン、ビルドOK。本番URLでの実描画・コンソールエラー0は M2 まで確認済み。
 
 ---
@@ -89,22 +89,20 @@ docs/          DESIGN.md（技術設計の正）/ HANDOFF.md（本書）/ gpt-ac
 
 ---
 
-## 6. 次にやる：M3 の実データ疎通（コードは実装済み）
+## 6. M3 実データ疎通（✅完了）＋残り
 
-**M3 のコードは main にマージ済み**（`scripts/notion/normalize.mjs`・`build.mjs`、`scripts/sync-notion.mjs`、`.github/workflows/sync.yml`、`src/lib/wordsUrl.ts`＋`data.ts` 切替、`data/words.json` 初期化、`docs/gpt-action.md`）。残りは**ユーザーの Notion 準備＋手動の疎通確認**。手順の詳細は **`docs/gpt-action.md`**、実装計画は `docs/superpowers/plans/2026-07-03-m3-notion-sync.md`。
+**M3 は push 済みで本番稼働**（`scripts/notion/normalize.mjs`・`build.mjs`、`scripts/sync-notion.mjs`、`.github/workflows/sync.yml`、`src/lib/wordsUrl.ts`＋`data.ts` 切替、`docs/gpt-action.md`）。手順の詳細は **`docs/gpt-action.md`**、実装計画は `docs/superpowers/plans/2026-07-03-m3-notion-sync.md`。
 
-**ユーザー側の準備（`docs/gpt-action.md` に沿って）**
-- Notion に「英単語帳」DB作成（列：`英単語 / 意味 / 品詞 / 関連語 / イディオム(任意) / 例文 / Tips / レベル / タグ`）。※全権整理とは分け、この DB は聖域（列名変更・作り直しをしない。列の追加は可）。
-- 内部インテグレーション作成 → 対象DBを共有 → トークン取得。
-- GitHub Secrets に `NOTION_TOKEN` / `NOTION_DATABASE_ID` を登録。
-- カスタムGPT に Notion Action（`POST /v1/pages`）を設定 → 妹に限定リンク共有。
+**完了済み（2026-07-04）**
+- Notion 最上位「Hiyolingo」ページ配下に教科別DBの1つ目「英語」DB作成（`database_id=81206d9d3f0847c09780edb5ce8f44c5`、9列）。※DB は聖域（列名変更・作り直しをしない。列の追加は可）。今後 古文・世界史 等を兄弟DBで追加。
+- 内部インテグレーション `Hiyolingo`（Read+Insertのみ）作成 → 「英語」DBに共有（ClaudeCode接続は外し分離）。
+- GitHub Secrets `NOTION_TOKEN` / `NOTION_DATABASE_ID` 登録。
+- **疎通確認済み**：Notion に「apple」入力 → `gh workflow run sync.yml` → `data/words.json` に反映（source:notion）をコミットで確認。以降は cron15分＋手動で自動同期（sync が `data/words.json` を更新するだけでアプリ反映・再ビルド不要）。
 
-**手動の疎通確認（準備後）**
-1. ローカル：`NOTION_TOKEN=... NOTION_DATABASE_ID=... node scripts/sync-notion.mjs` → `data/words.json` 生成。2回目は「変化なし」。
-2. GitHub：Secrets 登録後、Actions で `sync.yml` を手動実行（Run workflow）→ 差分コミットを確認。
-3. push すると `data.ts` 切替が本番反映（取得元が raw に）。以降は sync が `data/words.json` を更新するだけでアプリに反映（再ビルド不要）。
+**残り**
+- カスタムGPT に Notion Action（`POST /v1/pages`）を設定 → 妹に限定リンク共有（`docs/gpt-action.md` 手順4〜6）。
 
-**所有モデル（確定）**：Notion DB＝ユーザー所有・妹にゲスト共有。妹は ChatGPT Plus で共有GPTから書き込み、PWAで閲覧。hiyolingo 用の合鍵は「英単語帳」DBだけに絞る（全権整理用の合鍵とは別・DBは聖域）。
+**所有モデル（確定）**：Notion DB＝ユーザー所有・妹にゲスト共有。妹は ChatGPT Plus で共有GPTから書き込み、PWAで閲覧。hiyolingo 用の合鍵は「英語」DB（Hiyolingo配下）だけに絞る（全権整理用の合鍵とは別・DBは聖域）。
 
 ---
 
