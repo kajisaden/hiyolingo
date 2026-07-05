@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-07-05T10:49:45.404Z",
+    "generatedAt": "2026-07-05T11:03:49.172Z",
     "source": "notion",
     "count": 4,
     "fields": [
@@ -46,29 +46,45 @@
   "words": [
     {
       "id": "3949cbb5-a954-8045-b173-efe25c3888f9",
-      "例文": null,
-      "関連語": [],
-      "イディオム": null,
-      "Tips": null,
-      "レベル": null,
-      "タグ": [],
-      "意味": null,
-      "品詞": null,
+      "例文": "She added a banana to her smoothie.（彼女はスムージーにバナナを加えました。）",
+      "関連語": [
+        "fruit",
+        "peel",
+        "smoothie"
+      ],
+      "イディオム": "go bananas（気が変になる・熱狂する）",
+      "Tips": "bananaは日本語とほぼ同じ意味。発音は「バナナ」より /bəˈnænə/ に近く、真ん中の-na-を強く読みます。",
+      "レベル": 1,
+      "タグ": [
+        "果物",
+        "食べ物",
+        "基本語"
+      ],
+      "意味": "バナナ",
+      "品詞": "名詞",
       "英単語": "banana",
-      "_updated": "2026-07-05T10:41:00.000Z"
+      "_updated": "2026-07-05T11:03:00.000Z"
     },
     {
       "id": "3949cbb5-a954-80bb-bcf1-c2246bda1360",
-      "例文": null,
-      "関連語": [],
-      "イディオム": null,
-      "Tips": null,
-      "レベル": null,
-      "タグ": [],
-      "意味": null,
-      "品詞": null,
+      "例文": "I bought a bunch of grapes at the market.（市場でぶどうを一房買いました。）",
+      "関連語": [
+        "fruit",
+        "vine",
+        "raisin"
+      ],
+      "イディオム": "sour grapes（負け惜しみ）",
+      "Tips": "grapeは一粒のぶどう、a bunch of grapesで「ぶどう一房」。乾燥したぶどうはraisinです。",
+      "レベル": 1,
+      "タグ": [
+        "果物",
+        "食べ物",
+        "基本語"
+      ],
+      "意味": "ぶどう",
+      "品詞": "名詞",
       "英単語": "grape",
-      "_updated": "2026-07-05T10:41:00.000Z"
+      "_updated": "2026-07-05T11:03:00.000Z"
     },
     {
       "id": "3949cbb5-a954-8102-90c2-ec06af423ca2",
