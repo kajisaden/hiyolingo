@@ -13,6 +13,7 @@ import {
 } from '../quiz/session'
 import { clearSession, loadSession, saveSession } from '../quiz/storage'
 import { visibleDetailFields } from '../lib/schema'
+import { notionPageUrl } from '../lib/notionUrl'
 import { FieldValueView } from '../components/FieldValueView'
 
 const storage: StorageLike | undefined =
@@ -210,6 +211,7 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
     const supporting = visibleDetailFields(word, data.meta.fields, config).filter(
       (f) => f.key !== frontField && f.key !== backField,
     )
+    const notionUrl = notionPageUrl(word.id)
 
     return (
       <div className="mx-auto max-w-2xl p-4">
@@ -263,6 +265,19 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
             >
               わかった
             </button>
+          </div>
+        )}
+
+        {showBack && notionUrl && (
+          <div className="mt-3 text-center">
+            <a
+              href={notionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-blue-600 hover:underline dark:text-blue-400"
+            >
+              🔗 Notion で開く（編集・削除）
+            </a>
           </div>
         )}
       </div>
