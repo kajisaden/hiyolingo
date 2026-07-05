@@ -224,7 +224,7 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
 
         <button
           onClick={() => setShowBack(true)}
-          className="mt-3 min-h-56 w-full rounded-2xl border border-slate-200 bg-white p-6 text-left dark:border-slate-700 dark:bg-slate-800"
+          className="mt-3 min-h-56 w-full rounded-2xl border border-slate-100 bg-white shadow-sm p-6 text-left dark:border-slate-700 dark:bg-slate-800 dark:shadow-none"
         >
           <div className="text-2xl font-bold">
             {String(word[frontField] ?? '—')}

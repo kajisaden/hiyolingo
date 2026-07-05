@@ -43,7 +43,7 @@ export function Dictionary({
           return (
             <li
               key={w.id}
-              className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800"
+              className="overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:shadow-none"
             >
               <button
                 onClick={() => setOpenId(open ? null : w.id)}
