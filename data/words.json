@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-07-05T00:00:10.506Z",
+    "generatedAt": "2026-07-05T00:09:35.528Z",
     "source": "notion",
-    "count": 2,
+    "count": 3,
     "fields": [
       {
         "key": "例文",
@@ -69,6 +69,27 @@
       "品詞": null,
       "英単語": null,
       "_updated": "2026-07-04T23:59:00.000Z"
+    },
+    {
+      "id": "3949cbb5-a954-8102-a25f-ca5849fa3293",
+      "例文": "I ate an orange for breakfast.（朝食にオレンジを食べました。）",
+      "関連語": [
+        "fruit",
+        "citrus",
+        "juice"
+      ],
+      "イディオム": "compare apples and oranges（まったく違うものを比べる）",
+      "Tips": "果物のorangeと色のorangeは同じ単語。citrus（柑橘類）と一緒に覚えると便利です。",
+      "レベル": 1,
+      "タグ": [
+        "基本語",
+        "食べ物",
+        "色"
+      ],
+      "意味": "オレンジ、オレンジ色",
+      "品詞": "名詞",
+      "英単語": "orange",
+      "_updated": "2026-07-05T00:08:00.000Z"
     }
   ]
 }
