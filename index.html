@@ -14,6 +14,22 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="hiyolingo" />
+    <script>
+      // 描画前にテーマを適用（ちらつき防止）。設定は 自動/ライト/ダーク。
+      (function () {
+        try {
+          var v = localStorage.getItem('hiyolingo-theme')
+          var pref = v === 'light' || v === 'dark' ? v : 'auto'
+          var dark =
+            pref === 'dark' ||
+            (pref === 'auto' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          var el = document.documentElement
+          el.classList.toggle('dark', dark)
+          el.style.colorScheme = dark ? 'dark' : 'light'
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* ダークは OS 追従（media）ではなく <html class="dark"> で制御する。
+   JS が設定（自動/ライト/ダーク）に応じて .dark を付け外しする。 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   color-scheme: light dark;
 }

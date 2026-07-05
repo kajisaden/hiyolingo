@@ -1,6 +1,14 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import type { Config, WordsFile } from './lib/types'
 import { loadData } from './lib/data'
+import {
+  applyResolved,
+  nextPref,
+  readPref,
+  resolveTheme,
+  savePref,
+  type ThemePref,
+} from './lib/theme'
 import { Dictionary } from './views/Dictionary'
 import { Quiz } from './views/Quiz'
 
@@ -35,6 +43,7 @@ export default function App() {
       <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur dark:border-slate-700 dark:bg-slate-900/80">
         <h1 className="text-lg font-bold">hiyolingo</h1>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <a
             href={`${import.meta.env.BASE_URL}guide.html`}
             className="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
@@ -104,6 +113,37 @@ function TabButton({
       }`}
     >
       {children}
+    </button>
+  )
+}
+
+/** 画面の色トグル：自動 → ライト → ダーク を巡回。設定は localStorage に保存。 */
+function ThemeToggle() {
+  const [pref, setPref] = useState<ThemePref>(() => readPref(localStorage))
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = () => applyResolved(resolveTheme(pref, mq.matches))
+    apply()
+    savePref(pref, localStorage)
+    // 自動のときだけ OS の変更に追従する
+    if (pref === 'auto') {
+      mq.addEventListener('change', apply)
+      return () => mq.removeEventListener('change', apply)
+    }
+  }, [pref])
+
+  const icon = pref === 'auto' ? '🖥️' : pref === 'light' ? '☀️' : '🌙'
+  const name = pref === 'auto' ? '自動' : pref === 'light' ? 'ライト' : 'ダーク'
+
+  return (
+    <button
+      onClick={() => setPref(nextPref(pref))}
+      title={`画面の色：${name}（押すと 自動→ライト→ダーク）`}
+      aria-label={`画面の色を切り替え。今：${name}`}
+      className="rounded-lg border border-slate-300 px-2 py-1 text-sm dark:border-slate-600"
+    >
+      {icon}
     </button>
   )
 }
