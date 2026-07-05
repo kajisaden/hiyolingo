@@ -44,11 +44,15 @@
 ChatGPT（あなたの Plus）で GPT を新規作成 → **Configure → Actions → Create new action**。
 
 - **Authentication:** API Key / `Bearer` / トークン＝インテグレーションのトークン
-- **Schema（貼り付け）:**
+- **Schema（貼り付け）:** 下記。`Notion-Version` ヘッダはスキーマ内に固定値で埋め込む（ChatGPTのカスタムヘッダ欄は不安定なため）。
+
+> ⚠️ **重要：`properties` は自由形式（`type: object`）にしない。** それだと ChatGPT が中身のJSONを空のまま送り、**タイトルも含め全項目が空の行**が登録される（GPT Actionの既知の弱点）。下のように**各項目の形を明示**すると確実に埋まる。
 
 ```yaml
 openapi: 3.1.0
-info: { title: Notion 単語登録, version: '1.0.0' }
+info:
+  title: Notion 単語登録
+  version: '1.0.0'
 servers:
   - url: https://api.notion.com
 paths:
@@ -56,6 +60,14 @@ paths:
     post:
       operationId: createWord
       summary: 英語DBに1語を登録
+      parameters:
+        - name: Notion-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: ['2022-06-28']
+            default: '2022-06-28'
       requestBody:
         required: true
         content:
@@ -68,30 +80,123 @@ paths:
                   type: object
                   required: [database_id]
                   properties:
-                    database_id: { type: string }
-                properties: { type: object }
+                    database_id:
+                      type: string
+                      default: '81206d9d3f0847c09780edb5ce8f44c5'
+                properties:
+                  type: object
+                  properties:
+                    英単語:
+                      type: object
+                      properties:
+                        title:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: object
+                                properties:
+                                  content: { type: string }
+                    意味:
+                      type: object
+                      properties:
+                        rich_text:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: object
+                                properties:
+                                  content: { type: string }
+                    品詞:
+                      type: object
+                      properties:
+                        select:
+                          type: object
+                          properties:
+                            name: { type: string }
+                    関連語:
+                      type: object
+                      properties:
+                        multi_select:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name: { type: string }
+                    イディオム:
+                      type: object
+                      properties:
+                        rich_text:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: object
+                                properties:
+                                  content: { type: string }
+                    例文:
+                      type: object
+                      properties:
+                        rich_text:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: object
+                                properties:
+                                  content: { type: string }
+                    Tips:
+                      type: object
+                      properties:
+                        rich_text:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: object
+                                properties:
+                                  content: { type: string }
+                    レベル:
+                      type: object
+                      properties:
+                        number: { type: number }
+                    タグ:
+                      type: object
+                      properties:
+                        multi_select:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name: { type: string }
       responses:
-        '200': { description: 作成成功 }
+        '200':
+          description: 作成成功
 ```
-
-- **追加ヘッダ:** Actions の各リクエストに `Notion-Version: 2022-06-28` が乗るよう、ChatGPT の Action 設定で Custom Header を追加する。
 
 ## 5. GPT への指示文（Instructions に貼る）
 
 ```
 あなたは英単語登録アシスタントです。ユーザーが英単語を1つ言ったら、
 その単語について次を日本語中心に生成し、createWord アクションで Notion に1行登録してください。
-- 意味 / 品詞（名詞・動詞・形容詞など1つ）/ 関連語（数語）/ 例文 / Tips（覚え方・語源）/ レベル（1〜5の目安）/ タグ（任意）
+- 意味 / 品詞（名詞・動詞・形容詞など1つ）/ 関連語（数語）/ イディオム（任意）/ 例文 / Tips（覚え方・語源）/ レベル（1〜5の目安）/ タグ（任意）
 不明な項目は空のままにし、無理に埋めないでください。
 createWord の body は必ず次の形にします（database_id は下記固定値）:
 
 {
-  "parent": { "database_id": "<あなたのDB_ID>" },
+  "parent": { "database_id": "81206d9d3f0847c09780edb5ce8f44c5" },
   "properties": {
     "英単語": { "title": [{ "text": { "content": "<単語>" } }] },
     "意味":   { "rich_text": [{ "text": { "content": "<意味>" } }] },
     "品詞":   { "select": { "name": "<品詞>" } },
     "関連語": { "multi_select": [{ "name": "<語1>" }, { "name": "<語2>" }] },
+    "イディオム": { "rich_text": [{ "text": { "content": "<イディオム>" } }] },
     "例文":   { "rich_text": [{ "text": { "content": "<例文>" } }] },
     "Tips":   { "rich_text": [{ "text": { "content": "<Tips>" } }] },
     "レベル": { "number": <1-5> },
