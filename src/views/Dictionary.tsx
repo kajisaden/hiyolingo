@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { Config, WordsFile } from '../lib/types'
 import { matchesQuery, visibleDetailFields } from '../lib/schema'
+import { notionPageUrl } from '../lib/notionUrl'
 import { FieldValueView } from '../components/FieldValueView'
 
 /** 辞書モード：一覧・検索・タップで詳細（存在する列だけ表示）。 */
@@ -38,6 +39,7 @@ export function Dictionary({
           const secondary = w[config.dictionary.secondary]
           const open = openId === w.id
           const detail = visibleDetailFields(w, data.meta.fields, config)
+          const notionUrl = notionPageUrl(w.id)
           return (
             <li
               key={w.id}
@@ -55,19 +57,31 @@ export function Dictionary({
                 </span>
               </button>
               {open && (
-                <dl className="border-t border-slate-100 px-4 py-3 dark:border-slate-700">
-                  {detail.map((f) => (
-                    <div
-                      key={f.key}
-                      className="grid grid-cols-[5.5rem_1fr] gap-3 py-1"
+                <div className="border-t border-slate-100 px-4 py-3 dark:border-slate-700">
+                  <dl>
+                    {detail.map((f) => (
+                      <div
+                        key={f.key}
+                        className="grid grid-cols-[5.5rem_1fr] gap-3 py-1"
+                      >
+                        <dt className="text-sm text-slate-500">{f.key}</dt>
+                        <dd className="min-w-0">
+                          <FieldValueView field={f} value={w[f.key]} />
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  {notionUrl && (
+                    <a
+                      href={notionUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-block text-sm text-blue-600 hover:underline dark:text-blue-400"
                     >
-                      <dt className="text-sm text-slate-500">{f.key}</dt>
-                      <dd className="min-w-0">
-                        <FieldValueView field={f} value={w[f.key]} />
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
+                      🔗 Notion で開く（編集・削除）
+                    </a>
+                  )}
+                </div>
               )}
             </li>
           )
