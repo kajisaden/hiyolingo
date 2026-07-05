@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Hiyolingo プライバシーポリシー</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      line-height: 1.8; max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+      color: #1f2328; background: #fff;
+    }
+    @media (prefers-color-scheme: dark) { body { color: #e6e6e6; background: #16181c; } a { color: #6cb6ff; } }
+    h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+    h2 { font-size: 1.1rem; margin: 2rem 0 .5rem; border-bottom: 1px solid rgba(128,128,128,.3); padding-bottom: .3rem; }
+    .meta { color: #6b7280; font-size: .9rem; margin-bottom: 1.5rem; }
+    ul { padding-left: 1.25rem; }
+    code { background: rgba(128,128,128,.15); padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+    footer { margin-top: 3rem; font-size: .85rem; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <h1>プライバシーポリシー</h1>
+  <p class="meta">Hiyolingo（ひよリンゴ）英単語帳 ／ 最終更新: 2026-07-05</p>
+
+  <p>
+    Hiyolingo は、家族内での英語学習を目的とした個人運営の英単語帳ツールです。営利目的ではなく、
+    第三者への情報提供・広告配信は行いません。本ポリシーは、本ツールおよび連携するカスタムGPTが
+    どのような情報を扱うかを説明します。
+  </p>
+
+  <h2>1. 取り扱う情報</h2>
+  <ul>
+    <li>利用者が登録する<strong>英単語とその関連情報</strong>（意味・品詞・例文・関連語・イディオム・レベル・タグなど）。</li>
+    <li>クイズの進捗など、閲覧端末の<strong>ブラウザ内（localStorage）にのみ保存</strong>される情報。サーバーには送信されません。</li>
+  </ul>
+  <p>氏名・メールアドレス・連絡先などの個人を特定する情報は収集しません。アクセス解析・トラッキング・Cookie による追跡は行いません。</p>
+
+  <h2>2. 情報の保存先と公開範囲</h2>
+  <ul>
+    <li>登録した単語データは <strong>Notion のデータベース</strong>に保存されます（データの正本）。</li>
+    <li>そのデータは公開リポジトリ <a href="https://github.com/kajisaden/hiyolingo">github.com/kajisaden/hiyolingo</a> に同期され、
+      GitHub Pages 上の本サイトで配信されます。</li>
+    <li><strong>ご注意：</strong>公開リポジトリ／公開サイトに載るため、<strong>登録した単語や例文は誰でも閲覧できる状態</strong>になります。
+      個人情報・秘密の内容は登録しないでください。</li>
+  </ul>
+
+  <h2>3. カスタムGPT（ChatGPT）との連携</h2>
+  <ul>
+    <li>連携するカスタムGPTは、利用者が入力した英単語をもとに意味・例文などを生成し、
+      <strong>Notion API 経由で上記データベースに1件登録</strong>します。</li>
+    <li>この登録に必要な範囲（対象データベースへの読み取り・追加）以外の権限は付与していません。ユーザー情報の読み取り権限も付与していません。</li>
+    <li>ChatGPT 側での入力・生成の扱いは、OpenAI の利用規約・プライバシーポリシーに従います。</li>
+  </ul>
+
+  <h2>4. 第三者提供</h2>
+  <p>本ツールは、上記（Notion・GitHub・ChatGPT）以外の第三者へ情報を提供しません。広告・解析目的の外部送信も行いません。</p>
+
+  <h2>5. データの削除</h2>
+  <p>登録した単語は、Notion データベース上で該当行を削除することでいつでも消去できます。削除後は次回の同期でサイトからも取り除かれます。</p>
+
+  <h2>6. 改定</h2>
+  <p>本ポリシーは必要に応じて改定することがあります。重要な変更がある場合は本ページを更新します。</p>
+
+  <h2>7. お問い合わせ</h2>
+  <p>本ツールおよび本ポリシーに関するお問い合わせは、リポジトリ運営者（GitHub: <a href="https://github.com/kajisaden">@kajisaden</a>）までご連絡ください。</p>
+
+  <footer>
+    <p><a href="./">← Hiyolingo に戻る</a></p>
+  </footer>
+</body>
+</html>
