@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Hiyolingo 使い方</title>
+<style>
+  :root{
+    --page:#fffcf5; --card:#ffffff; --ink:#2b2a26; --sub:#6f6d64; --line:#efe7d6;
+    --chick:#f6b93b; --chick-bg:#fff6e0; --chick-ink:#8a5a05;
+    --blue:#2563eb; --blue-bg:#e8f0ff; --blue-ink:#1a49b8;
+    --green:#3f9d54; --green-bg:#e8f6ea; --green-ink:#256a34;
+    --warn-bg:#fff2f2; --warn-line:#f3c9c4; --warn-ink:#a33127;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--page);}
+  body{font-family:system-ui,-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+    color:var(--ink); line-height:1.75; -webkit-text-size-adjust:100%;}
+  .g{max-width:660px; margin:0 auto; padding:0 18px 64px;}
+  .topbar{max-width:660px; margin:0 auto; padding:12px 18px 0;}
+  .back{color:var(--blue-ink); text-decoration:none; font-size:.92rem; font-weight:700;}
+  h2{font-size:1.28rem; font-weight:700; margin:2.4rem 0 .2rem; letter-spacing:.01em;}
+  h3{font-size:1.02rem; font-weight:700; margin:0 0 .5rem;}
+  p{margin:.4rem 0;}
+  .lead{color:var(--sub); font-size:.98rem;}
+  .num{display:inline-flex; align-items:center; justify-content:center; width:1.5rem; height:1.5rem;
+    border-radius:999px; font-size:.85rem; font-weight:700; margin-right:.5rem; flex:none;}
+  .hero{text-align:center; padding:1.6rem 1rem 1.2rem;}
+  .hero .egg{font-size:3.2rem; line-height:1;}
+  .hero h1{font-size:1.7rem; font-weight:800; margin:.4rem 0 .2rem;}
+  .hero .tag{color:var(--chick-ink); background:var(--chick-bg); display:inline-block;
+    padding:.2rem .8rem; border-radius:999px; font-size:.9rem; font-weight:700;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:1.1rem 1.15rem; margin:.7rem 0;
+    box-shadow:0 1px 3px rgba(120,90,20,.05);}
+  .tools{display:grid; grid-template-columns:1fr; gap:.7rem;}
+  .tool{display:flex; gap:.8rem; align-items:flex-start;}
+  .tool .ico{font-size:1.7rem; line-height:1.2; flex:none;}
+  .tool .t{font-weight:700;}
+  .tool .d{color:var(--sub); font-size:.92rem;}
+  .warn{background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:16px; padding:1.1rem 1.15rem; margin:1rem 0;}
+  .warn .h{color:var(--warn-ink); font-weight:800; font-size:1.05rem; display:flex; gap:.4rem; align-items:center;}
+  .chip{display:inline-block; background:#fff; border:1px solid var(--line); border-radius:8px;
+    padding:.05rem .45rem; font-weight:700; font-size:.92em;}
+  .method{border-radius:16px; padding:1.1rem 1.15rem; margin:.8rem 0; border:1px solid var(--line); background:var(--card);}
+  .method .badge{display:inline-block; font-weight:800; font-size:.82rem; padding:.15rem .6rem; border-radius:999px; margin-bottom:.5rem;}
+  .m-a .badge{background:var(--blue-bg); color:var(--blue-ink);}
+  .m-a .num{background:var(--blue-bg); color:var(--blue-ink);}
+  .m-b .badge{background:var(--green-bg); color:var(--green-ink);}
+  .m-b .num{background:var(--green-bg); color:var(--green-ink);}
+  .steps{list-style:none; padding:0; margin:.3rem 0 0;}
+  .steps li{display:flex; align-items:flex-start; margin:.35rem 0;}
+  .say{background:#f3f4f6; border-radius:8px; padding:.05rem .45rem; font-weight:700;}
+  .tip{color:var(--sub); font-size:.9rem; margin-top:.5rem;}
+  .qa{margin:.5rem 0;}
+  .qa .q{font-weight:700;}
+  .qa .a{color:var(--sub); margin:.15rem 0 .8rem;}
+  .openbtn{display:inline-block; background:var(--blue); color:#fff; text-decoration:none;
+    font-weight:700; padding:.55rem 1rem; border-radius:10px; margin-top:.3rem;}
+  .foot{text-align:center; color:var(--sub); font-size:.85rem; margin-top:2.5rem;}
+</style>
+</head>
+<body>
+<div class="topbar"><a class="back" href="./">← 単語帳にもどる</a></div>
+<div class="g">
+  <div class="hero">
+    <div class="egg">🐣</div>
+    <h1>Hiyolingo つかいかたガイド</h1>
+    <div class="tag">英単語をためて、おぼえよう</div>
+  </div>
+
+  <p class="lead">英単語を「登録」して、あとで「おぼえる・クイズする」ためのミニ単語帳だよ。まずは登場する3つを知っておこう。</p>
+
+  <h2>まず、3つの道具</h2>
+  <div class="tools">
+    <div class="card tool"><div class="ico">📱</div><div><div class="t">単語帳アプリ（Hiyolingo）</div><div class="d">いま見ているこれ。覚えた単語を見たり、クイズする所。「見る」専用。</div></div></div>
+    <div class="card tool"><div class="ico">🤖</div><div><div class="t">登録アシスタント（Hiyolingo）</div><div class="d">単語を「登録」する所。ChatGPTの中にいる専用の相棒。</div></div></div>
+    <div class="card tool"><div class="ico">📋</div><div><div class="t">単語リスト（Notion）</div><div class="d">単語がたまっていく場所。書き溜め・削除に使う。</div></div></div>
+  </div>
+
+  <div class="warn">
+    <div class="h">⚠️ ここだけ注意</div>
+    <p><b>登録できるのは「Hiyolingo」アシスタントの中だけ</b>。ふつうのChatGPTのチャットに <span class="chip">apple</span> と打っても、ただの会話で終わって<b>単語帳には入らない</b>よ。</p>
+    <p style="margin-top:.5rem">見分け方：名前が <b>「Hiyolingo」</b> になっているのを開く。<br>最初は<b>もらったリンク</b>から開く → 一度開けば、次からはChatGPTの履歴からすぐ開けるよ。</p>
+  </div>
+
+  <h2>単語の入れ方は2つ</h2>
+
+  <div class="method m-a">
+    <span class="badge">方法A ・ その場で登録</span>
+    <h3>思いついた単語を、すぐ登録</h3>
+    <ul class="steps">
+      <li><span class="num">1</span><div><b>登録アシスタント（Hiyolingo）</b>を開く</div></li>
+      <li><span class="num">2</span><div>覚えたい英単語を打つ or 声で言う（例：<span class="say">apple</span>）</div></li>
+      <li><span class="num">3</span><div>意味・例文・覚え方を自動で作って登録してくれる</div></li>
+      <li><span class="num">4</span><div>「登録しました」と返ってきたらOK ✅</div></li>
+    </ul>
+    <p class="tip">👉 1個ずつ、その場で完成。外でもサッと使える。</p>
+  </div>
+
+  <div class="method m-b">
+    <span class="badge">方法B ・ まとめて仕上げ</span>
+    <h3>単語だけ書き溜めて、あとで一括</h3>
+    <ul class="steps">
+      <li><span class="num">1</span><div><b>単語リスト（Notion）</b>に、英単語だけをどんどん書く（意味は空っぽでOK）</div></li>
+      <li><span class="num">2</span><div>あとで<b>登録アシスタント</b>を開いて <span class="say">未成形を埋めて</span> と送る</div></li>
+      <li><span class="num">3</span><div>空だった単語ぜんぶに、意味・例文が一気に入る ✅</div></li>
+    </ul>
+    <p class="tip">👉 授業中に単語だけメモ → 帰ってからまとめて仕上げ、みたいな使い方に。</p>
+  </div>
+
+  <h2>おぼえる・クイズする</h2>
+  <div class="card">
+    <p>この単語帳アプリで、登録した単語を一覧で見られるよ。</p>
+    <p>・<b>辞書</b>タブ … 単語をタップで意味・例文を表示<br>・<b>クイズ</b>タブ … 表裏・日英でテスト。むずかしいのだけ再挑戦もできる</p>
+    <p class="tip">📲 スマホで開いて「ホーム画面に追加」すると、アプリみたいに使えるよ。</p>
+  </div>
+
+  <h2>単語を消したいとき</h2>
+  <div class="card">
+    <p>アプリで単語をタップ → 出てくる <b>「🔗 Notion で開く（編集・削除）」</b> を押す → Notionでその単語を削除。</p>
+    <p class="tip">消した結果がアプリに出るまで、少し時間がかかるよ（下の「困ったとき」参照）。</p>
+  </div>
+
+  <h2>困ったとき</h2>
+  <div class="card">
+    <div class="qa"><div class="q">Q. 登録したのにアプリに出てこない</div><div class="a">A. アプリに出るまで<b>最大15分</b>かかるよ。少し待って、アプリの <span class="chip">↻ 最新を取得</span> を押してみて。</div></div>
+    <div class="qa"><div class="q">Q. 単語を言ったのに登録されない</div><div class="a">A. 開いているのが<b>「Hiyolingo」アシスタント</b>か確認。ふつうのChatGPTだと登録されないよ。</div></div>
+    <div class="qa"><div class="q">Q.「未成形を埋めて」が動かない</div><div class="a">A. 少し待ってもう一度送ってみて。それでもダメなら管理者に連絡。</div></div>
+  </div>
+
+  <h2>単語リストを開く</h2>
+  <div class="card">
+    <p>Notionの単語リストは、書き溜めや削除に使うよ。</p>
+    <a class="openbtn" href="https://app.notion.com/p/Hiyolingo-3939cbb5a95481dfa137d36a4e7ddbae?source=copy_link">📋 単語リスト（Notion）を開く</a>
+  </div>
+
+  <div class="foot"><a class="back" href="./">← 単語帳にもどる</a><br><br>🐣 たくさん登録して、コツコツおぼえよう！</div>
+</div>
+</body>
+</html>

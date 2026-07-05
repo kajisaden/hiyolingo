@@ -34,14 +34,22 @@ export default function App() {
     <div className="min-h-full bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur dark:border-slate-700 dark:bg-slate-900/80">
         <h1 className="text-lg font-bold">hiyolingo</h1>
-        <button
-          onClick={() => void refresh(true)}
-          disabled={loading}
-          title="GitHub上の最新データを取り直します（Notionの変更は最大15分で反映）"
-          className="rounded-lg border border-slate-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-slate-600"
-        >
-          {loading ? '取得中…' : '↻ 最新を取得'}
-        </button>
+        <div className="flex items-center gap-2">
+          <a
+            href={`${import.meta.env.BASE_URL}guide.html`}
+            className="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+          >
+            🐣 使い方
+          </a>
+          <button
+            onClick={() => void refresh(true)}
+            disabled={loading}
+            title="GitHub上の最新データを取り直します（Notionの変更は最大15分で反映）"
+            className="rounded-lg border border-slate-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-slate-600"
+          >
+            {loading ? '取得中…' : '↻ 最新を取得'}
+          </button>
+        </div>
       </header>
 
       <nav className="flex border-b border-slate-200 dark:border-slate-700">
