@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-07-05T00:09:35.528Z",
+    "generatedAt": "2026-07-05T07:11:05.966Z",
     "source": "notion",
-    "count": 3,
+    "count": 1,
     "fields": [
       {
         "key": "例文",
@@ -44,32 +44,6 @@
     "warnings": []
   },
   "words": [
-    {
-      "id": "3939cbb5-a954-809f-a537-d535532bd97f",
-      "例文": null,
-      "関連語": [],
-      "イディオム": null,
-      "Tips": null,
-      "レベル": null,
-      "タグ": [],
-      "意味": null,
-      "品詞": null,
-      "英単語": "apple",
-      "_updated": "2026-07-04T23:17:00.000Z"
-    },
-    {
-      "id": "3939cbb5-a954-815d-9114-cc22621de273",
-      "例文": null,
-      "関連語": [],
-      "イディオム": null,
-      "Tips": null,
-      "レベル": null,
-      "タグ": [],
-      "意味": null,
-      "品詞": null,
-      "英単語": null,
-      "_updated": "2026-07-04T23:59:00.000Z"
-    },
     {
       "id": "3949cbb5-a954-8102-a25f-ca5849fa3293",
       "例文": "I ate an orange for breakfast.（朝食にオレンジを食べました。）",
