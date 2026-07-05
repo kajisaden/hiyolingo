@@ -37,9 +37,10 @@ export default function App() {
         <button
           onClick={() => void refresh(true)}
           disabled={loading}
+          title="GitHub上の最新データを取り直します（Notionの変更は最大15分で反映）"
           className="rounded-lg border border-slate-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-slate-600"
         >
-          {loading ? '同期中…' : '↻ 同期'}
+          {loading ? '取得中…' : '↻ 最新を取得'}
         </button>
       </header>
 
@@ -66,7 +67,10 @@ export default function App() {
 
       {state && (
         <footer className="p-4 text-center text-xs text-slate-400">
-          {state.words.meta.count} 語 / 生成: {state.words.meta.generatedAt}
+          <p>{state.words.meta.count} 語 / 生成: {state.words.meta.generatedAt}</p>
+          <p className="mt-1">
+            Notionでの追加・削除は最大15分でアプリに反映されます
+          </p>
         </footer>
       )}
     </div>
