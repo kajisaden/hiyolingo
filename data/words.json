@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-07-05T07:11:05.966Z",
+    "generatedAt": "2026-07-05T10:49:45.404Z",
     "source": "notion",
-    "count": 1,
+    "count": 4,
     "fields": [
       {
         "key": "例文",
@@ -44,6 +44,52 @@
     "warnings": []
   },
   "words": [
+    {
+      "id": "3949cbb5-a954-8045-b173-efe25c3888f9",
+      "例文": null,
+      "関連語": [],
+      "イディオム": null,
+      "Tips": null,
+      "レベル": null,
+      "タグ": [],
+      "意味": null,
+      "品詞": null,
+      "英単語": "banana",
+      "_updated": "2026-07-05T10:41:00.000Z"
+    },
+    {
+      "id": "3949cbb5-a954-80bb-bcf1-c2246bda1360",
+      "例文": null,
+      "関連語": [],
+      "イディオム": null,
+      "Tips": null,
+      "レベル": null,
+      "タグ": [],
+      "意味": null,
+      "品詞": null,
+      "英単語": "grape",
+      "_updated": "2026-07-05T10:41:00.000Z"
+    },
+    {
+      "id": "3949cbb5-a954-8102-90c2-ec06af423ca2",
+      "例文": "I eat an apple every morning.（私は毎朝りんごを食べます。）",
+      "関連語": [
+        "fruit",
+        "orchard",
+        "cider"
+      ],
+      "イディオム": "the apple of one's eye（とても大切な人・もの）",
+      "Tips": "身近な果物の名前。発音は「アップル」ではなく /ˈæpəl/ に近い音。",
+      "レベル": 1,
+      "タグ": [
+        "果物",
+        "日常語"
+      ],
+      "意味": "りんご",
+      "品詞": "名詞",
+      "英単語": "apple",
+      "_updated": "2026-07-05T10:06:00.000Z"
+    },
     {
       "id": "3949cbb5-a954-8102-a25f-ca5849fa3293",
       "例文": "I ate an orange for breakfast.（朝食にオレンジを食べました。）",
