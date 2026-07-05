@@ -219,3 +219,22 @@ createWord の body は必ず次の形にします（database_id は下記固定
 - トークンは「英語」DB（Hiyolingo配下）だけに権限を絞る。
 - 漏洩時は Notion でトークンを再発行すれば古いトークンは即失効。GitHub Secrets と GPT Action の両方を更新する。
 - **合鍵の本数:** まずは1本（読み書き兼用）で開始し、より厳密にするなら「読む用（Secrets）」と「書く用（GPT）」で2本に分ける。
+
+## 8. 方式②：Notionの未成形単語を一括成形（2026-07-05 追加・動作確認済み）
+
+「Notionに単語だけ（英単語のタイトルだけ）書き溜め → GPTに『未成形を埋めて』→ 意味・例文などを一括で埋める」流れ。既存行を**更新**するので重複を作らない。方式Aの `createWord` は残したまま、Action を2つ追加する。
+
+**前提（重要）**
+- インテグレーションの権限は **Read content ＋ Insert content ＋ Update content の3つすべて必須**（更新にはUpdate、DB検索にはReadが要る）。
+- **GPTのAction認証トークンは、上記3権限を持つ正しいインテグレーションのものを貼る。** 古い/別トークンだと `createWord`(挿入)は通っても `findUnformatted`(読み取り=DBクエリ)が **403** になる。403が出たらまずトークンを貼り直す。
+- `findUnformatted` は**フィルタを付けず全行取得**し、GPT側で「意味が空」の行を選別する（sync と同じプレーンな `/query`＝安定）。Notionのフィルタ付きだと不安定だった。
+
+**Action（3つ）**：`createWord`（新規・方式A）/ `findUnformatted`（`POST /v1/databases/<DB_ID>/query`・全行取得）/ `updateWord`（`PATCH /v1/pages/{page_id}`・既存行に書き込み）。スキーマは `openapi 3.1.0`、各operationに `Notion-Version: 2022-06-28` を header param（enum+default）で固定、`properties` は `$ref: '#/components/schemas/WordProps'` で明示（自由形式 `type: object` だと空送信されるため不可）。`database_id`＝`81206d9d3f0847c09780edb5ce8f44c5`。
+
+**GPT Instructions のB（一括成形）**
+1. `findUnformatted` を `{ "page_size": 100 }` で呼ぶ（全行取得）。
+2. results から「`properties.意味.rich_text` が空」かつ「`英単語` に語がある」行だけ対象（先頭10件まで）。
+3. 各行：`page_id` = 要素の `id`、単語 = `英単語` の title。意味/品詞/関連語/イディオム/例文/Tips/レベル/タグ を生成し `updateWord`（body `{ "properties": {…} }`、更新時は `英単語` を入れない）。
+4. 終えたら「N語を成形しました」。0件なら「未成形はありません」。10件超は10件だけ→再実行を促す。
+
+> 反映タイミング：GPT↔Notion は即時。アプリ表示は sync 経由で最大15分。
