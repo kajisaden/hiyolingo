@@ -1,8 +1,8 @@
 name: Sync Notion → words.json
 
 # cron は15分ごと＋手動実行。※public リポジトリの schedule は
-# 60日間コミットが無いと自動停止する仕様。長期間変化が無い場合は
-# 時々「Run workflow」を手動実行して回避する。
+# 60日間コミットが無いと自動停止する仕様のため、実行のたびに
+# 自身を re-enable するAPIを叩いてカウンタをリセットする（手動対応不要）。
 on:
   schedule:
     - cron: '*/15 * * * *'
@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: sync-notion
@@ -20,6 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: 60日無活動による自動停止を防ぐ（セルフ再有効化）
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/sync.yml/enable"
       - uses: actions/setup-node@v4
         with:
           node-version: '20'

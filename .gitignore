@@ -4,3 +4,6 @@ dist-ssr
 *.local
 .DS_Store
 .vite
+
+# Claude Code superpowers の作業ディレクトリ
+.superpowers/
