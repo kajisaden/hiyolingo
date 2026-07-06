@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-07-05T11:03:49.172Z",
+    "generatedAt": "2026-07-06T12:56:01.452Z",
     "source": "notion",
-    "count": 4,
+    "count": 5,
     "fields": [
       {
         "key": "例文",
@@ -126,6 +126,19 @@
       "品詞": "名詞",
       "英単語": "orange",
       "_updated": "2026-07-05T00:08:00.000Z"
+    },
+    {
+      "id": "3959cbb5-a954-804b-b50e-e8fbefbb260a",
+      "例文": null,
+      "関連語": [],
+      "イディオム": null,
+      "Tips": null,
+      "レベル": null,
+      "タグ": [],
+      "意味": null,
+      "品詞": null,
+      "英単語": null,
+      "_updated": "2026-07-06T12:26:00.000Z"
     }
   ]
 }
