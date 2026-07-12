@@ -41,8 +41,8 @@ export function parseCsv(text) {
   return rows
 }
 
-function fieldType(key) {
-  if (key === '英単語') return 'title'
+function fieldType(key, titleField) {
+  if (key === titleField) return 'title'
   if (MULTI_VALUE_COLUMNS.has(key)) return 'multi_select'
   if (NUMBER_COLUMNS.has(key)) return 'number'
   return 'rich_text'
@@ -61,15 +61,15 @@ function normalizeCell(key, raw) {
   return value === '' ? null : value
 }
 
-export function buildWordsFile({ csv, generatedAt }) {
+export function buildWordsFile({ csv, generatedAt, titleField = '英単語', subject = 'english' }) {
   const [headers = [], ...rows] = parseCsv(csv)
   const columns = headers.map((key, index) => ({ key: key.trim(), index }))
-  const title = columns.find((column) => column.key === '英単語')
-  if (!title) throw new Error('「英単語」列が見つかりません。')
+  const title = columns.find((column) => column.key === titleField)
+  if (!title) throw new Error(`「${titleField}」列が見つかりません。`)
 
   const fields = columns
     .filter(({ key }) => key !== '' && !INTERNAL_COLUMNS.has(key))
-    .map(({ key }) => ({ key, type: fieldType(key) }))
+    .map(({ key }) => ({ key, type: fieldType(key, titleField) }))
   const warnings = []
   const words = []
 
@@ -93,6 +93,7 @@ export function buildWordsFile({ csv, generatedAt }) {
     meta: {
       generatedAt,
       source: 'google-sheets',
+      subject,
       count: words.length,
       fields,
       warnings: [...new Set(warnings)],
