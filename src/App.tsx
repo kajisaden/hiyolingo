@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import type { Config, WordsFile } from './lib/types'
+import type { WordsFile } from './lib/types'
 import { loadData } from './lib/data'
+import { SUBJECTS } from './lib/subjects'
 import {
   applyResolved,
   nextPref,
@@ -16,9 +17,9 @@ type Tab = 'dict' | 'quiz'
 
 export default function App() {
   const [tab, setTab] = useState<Tab>('dict')
-  const [state, setState] = useState<{ words: WordsFile; config: Config } | null>(
-    null,
-  )
+  const [subjectId, setSubjectId] = useState(SUBJECTS[0].id)
+  const subject = SUBJECTS.find((item) => item.id === subjectId) ?? SUBJECTS[0]
+  const [state, setState] = useState<WordsFile | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -26,7 +27,7 @@ export default function App() {
     setLoading(true)
     setError(null)
     try {
-      setState(await loadData(bust))
+      setState(await loadData(subject, bust))
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e))
     } finally {
@@ -36,7 +37,7 @@ export default function App() {
 
   useEffect(() => {
     void refresh(false)
-  }, [])
+  }, [subjectId])
 
   return (
     <div className="min-h-full bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
@@ -53,13 +54,25 @@ export default function App() {
           <button
             onClick={() => void refresh(true)}
             disabled={loading}
-            title="GitHub上の最新データを取り直します（Notionの変更は最大15分で反映）"
+            title="GitHub上の最新データを取り直します（スプレッドシートの変更は最大15分で反映）"
             className="rounded-lg border border-slate-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-slate-600"
           >
             {loading ? '取得中…' : '↻ 最新を取得'}
           </button>
         </div>
       </header>
+
+      <div className="flex justify-center gap-2 border-b border-slate-200 bg-white px-4 py-2 dark:border-slate-700 dark:bg-slate-900">
+        {SUBJECTS.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setSubjectId(item.id)}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${subjectId === item.id ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
 
       <nav className="flex border-b border-slate-200 dark:border-slate-700">
         <TabButton active={tab === 'dict'} onClick={() => setTab('dict')}>
@@ -76,17 +89,17 @@ export default function App() {
       )}
 
       {state && tab === 'dict' && (
-        <Dictionary data={state.words} config={state.config} />
+        <Dictionary key={subject.id} data={state} config={subject.config} subjectLabel={subject.label} />
       )}
       {state && tab === 'quiz' && (
-        <Quiz data={state.words} config={state.config} />
+        <Quiz key={subject.id} data={state} config={subject.config} subjectId={subject.id} />
       )}
 
       {state && (
         <footer className="p-4 text-center text-xs text-slate-400">
-          <p>{state.words.meta.count} 語 / 生成: {state.words.meta.generatedAt}</p>
+          <p>{subject.label} {state.meta.count} 語 / 生成: {state.meta.generatedAt}</p>
           <p className="mt-1">
-            Notionでの追加・削除は最大15分でアプリに反映されます
+            スプレッドシートでの変更は最大15分でアプリに反映されます
           </p>
         </footer>
       )}

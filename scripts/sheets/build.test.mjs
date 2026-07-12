@@ -9,6 +9,15 @@ describe('parseCsv', () => {
       ['say "hi"', 'z'],
     ])
   })
+
+  it('古文単語をタイトル列として変換できる', () => {
+    const file = buildWordsFile({
+      csv: 'id,古文単語,意味,品詞,レベル,タグ,成形状態\nkob-1,かげ,光,名詞,2,頻出,成形済み',
+      generatedAt: 'GEN', titleField: '古文単語', subject: 'kobun',
+    })
+    expect(file.meta.subject).toBe('kobun')
+    expect(file.words[0]).toMatchObject({ id: 'kob-1', 古文単語: 'かげ', 意味: '光', 品詞: ['名詞'], レベル: 2 })
+  })
 })
 
 describe('buildWordsFile', () => {

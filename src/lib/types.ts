@@ -1,4 +1,4 @@
-// Notion プロパティを正規化したあとの、アプリ内でのデータ型。
+// スプレッドシートの値を正規化したあとの、アプリ内でのデータ型。
 // スキーマは固定しない：meta.fields（発見された列）を見て動的描画する。
 
 export type FieldType =
@@ -31,10 +31,18 @@ export interface FieldMeta {
 export interface WordsMeta {
   generatedAt: string
   source: string
+  subject?: string
   count: number
   /** 発見された列。UIはこの順序・型に従って描画する。 */
   fields: FieldMeta[]
   warnings?: string[]
+}
+
+export interface Subject {
+  id: 'english' | 'kobun'
+  label: string
+  dataFile: string
+  config: Config
 }
 
 export interface Word {

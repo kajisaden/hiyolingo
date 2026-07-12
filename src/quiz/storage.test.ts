@@ -35,13 +35,13 @@ describe('quiz storage', () => {
 
   it('壊れたJSONは例外を投げず null', () => {
     const s = memStorage()
-    s.setItem(QUIZ_KEY, '{not json')
+    s.setItem(`${QUIZ_KEY}.english`, '{not json')
     expect(loadSession(s)).toBeNull()
   })
 
   it('形が違うデータは null', () => {
     const s = memStorage()
-    s.setItem(QUIZ_KEY, JSON.stringify({ foo: 1 }))
+    s.setItem(`${QUIZ_KEY}.english`, JSON.stringify({ foo: 1 }))
     expect(loadSession(s)).toBeNull()
   })
 
@@ -50,5 +50,12 @@ describe('quiz storage', () => {
     saveSession(s, sample)
     clearSession(s)
     expect(loadSession(s)).toBeNull()
+  })
+
+  it('教科ごとにセッションを分離する', () => {
+    const s = memStorage()
+    saveSession(s, sample, 'english')
+    expect(loadSession(s, 'kobun')).toBeNull()
+    expect(loadSession(s, 'english')).toEqual(sample)
   })
 })

@@ -31,14 +31,13 @@ jobs:
       - name: Googleスプレッドシートを同期
         env:
           GOOGLE_SHEETS_ID: 1yrRhWC3SZ2KMcfYV2VkMpAahDJQKSeAE5EOHvGmcgv4
-          GOOGLE_SHEETS_TAB: 英語
         run: node scripts/sync-sheets.mjs
       - name: 差分があればコミット
         run: |
-          if [ -n "$(git status --porcelain data/words.json)" ]; then
+          if [ -n "$(git status --porcelain data/words.json data/kobun.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add data/words.json
+            git add data/words.json data/kobun.json
             git commit -m "data: Google Sheets同期でwords.jsonを更新"
             git push
           else

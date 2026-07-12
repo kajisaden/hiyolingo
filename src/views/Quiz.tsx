@@ -13,21 +13,20 @@ import {
 } from '../quiz/session'
 import { clearSession, loadSession, saveSession } from '../quiz/storage'
 import { visibleDetailFields } from '../lib/schema'
-import { notionPageUrl } from '../lib/notionUrl'
 import { FieldValueView } from '../components/FieldValueView'
 
 const storage: StorageLike | undefined =
   typeof window !== 'undefined' ? window.localStorage : undefined
 
 const DIRECTIONS: { value: DirectionChoice; label: string }[] = [
-  { value: 'term->meaning', label: '英 → 日' },
-  { value: 'meaning->term', label: '日 → 英' },
+  { value: 'term->meaning', label: '単語 → 意味' },
+  { value: 'meaning->term', label: '意味 → 単語' },
   { value: 'mix', label: 'ミックス' },
 ]
 
 type Phase = 'setup' | 'playing' | 'results'
 
-export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
+export function Quiz({ data, config, subjectId }: { data: WordsFile; config: Config; subjectId: string }) {
   const [phase, setPhase] = useState<Phase>('setup')
   const [session, setSession] = useState<QuizSession | null>(null)
   const [resumable, setResumable] = useState<QuizSession | null>(null)
@@ -48,15 +47,15 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
   // 起動時：未完のセッションがあれば「続きから」を提示（現在の単語一覧で突合）
   useEffect(() => {
     if (!storage) return
-    const saved = loadSession(storage)
+    const saved = loadSession(storage, subjectId)
     if (!saved) return
     const rec = reconcile(saved, data.words)
     if (rec.deck.length > 0 && !isComplete(rec)) setResumable(rec)
-    else clearSession(storage)
-  }, [data.words])
+    else clearSession(storage, subjectId)
+  }, [data.words, subjectId])
 
   function persist(s: QuizSession) {
-    if (storage) saveSession(storage, s)
+    if (storage) saveSession(storage, s, subjectId)
   }
 
   function start() {
@@ -79,7 +78,7 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
   }
 
   function discardResume() {
-    if (storage) clearSession(storage)
+    if (storage) clearSession(storage, subjectId)
     setResumable(null)
   }
 
@@ -103,7 +102,7 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
   }
 
   function restart() {
-    if (storage) clearSession(storage)
+    if (storage) clearSession(storage, subjectId)
     setSession(null)
     setPhase('setup')
   }
@@ -211,7 +210,6 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
     const supporting = visibleDetailFields(word, data.meta.fields, config).filter(
       (f) => f.key !== frontField && f.key !== backField,
     )
-    const notionUrl = notionPageUrl(word.id)
 
     return (
       <div className="mx-auto max-w-2xl p-4">
@@ -268,18 +266,6 @@ export function Quiz({ data, config }: { data: WordsFile; config: Config }) {
           </div>
         )}
 
-        {showBack && notionUrl && (
-          <div className="mt-3 text-center">
-            <a
-              href={notionUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-600 hover:underline dark:text-blue-400"
-            >
-              🔗 Notion で開く（編集・削除）
-            </a>
-          </div>
-        )}
       </div>
     )
   }
