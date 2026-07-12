@@ -1,31 +1,35 @@
 {
   "meta": {
-    "generatedAt": "2026-07-12T06:47:40.458Z",
-    "source": "notion",
-    "count": 14,
+    "generatedAt": "2026-07-12T13:45:30.090Z",
+    "source": "google-sheets",
+    "count": 17,
     "fields": [
       {
-        "key": "例文",
-        "type": "rich_text"
-      },
-      {
-        "key": "関連語",
-        "type": "multi_select"
-      },
-      {
-        "key": "イディオム",
-        "type": "rich_text"
+        "key": "英単語",
+        "type": "title"
       },
       {
         "key": "Tips",
         "type": "rich_text"
       },
       {
+        "key": "イディオム",
+        "type": "rich_text"
+      },
+      {
+        "key": "タグ",
+        "type": "multi_select"
+      },
+      {
         "key": "レベル",
         "type": "number"
       },
       {
-        "key": "タグ",
+        "key": "例文",
+        "type": "rich_text"
+      },
+      {
+        "key": "品詞",
         "type": "multi_select"
       },
       {
@@ -33,304 +37,392 @@
         "type": "rich_text"
       },
       {
-        "key": "品詞",
-        "type": "select"
-      },
-      {
-        "key": "英単語",
-        "type": "title"
+        "key": "関連語",
+        "type": "multi_select"
       }
     ],
     "warnings": []
   },
   "words": [
     {
-      "id": "3949cbb5-a954-8045-b173-efe25c3888f9",
-      "例文": "She added a banana to her smoothie.（彼女はスムージーにバナナを加えました。）",
-      "関連語": [
-        "fruit",
-        "peel",
-        "smoothie"
-      ],
-      "イディオム": "go bananas（気が変になる・熱狂する）",
-      "Tips": "bananaは日本語とほぼ同じ意味。発音は「バナナ」より /bəˈnænə/ に近く、真ん中の-na-を強く読みます。",
-      "レベル": 1,
-      "タグ": [
-        "名詞"
-      ],
-      "意味": "バナナ",
-      "品詞": "名詞",
-      "英単語": "banana",
-      "_updated": "2026-07-05T11:03:00.000Z"
-    },
-    {
-      "id": "3949cbb5-a954-80bb-bcf1-c2246bda1360",
-      "例文": "I bought a bunch of grapes at the market.（市場でぶどうを一房買いました。）",
-      "関連語": [
-        "fruit",
-        "vine",
-        "raisin"
-      ],
-      "イディオム": "sour grapes（負け惜しみ）",
-      "Tips": "grapeは一粒のぶどう、a bunch of grapesで「ぶどう一房」。乾燥したぶどうはraisinです。",
-      "レベル": 1,
-      "タグ": [
-        "名詞"
-      ],
-      "意味": "ぶどう",
-      "品詞": "名詞",
-      "英単語": "grape",
-      "_updated": "2026-07-05T11:03:00.000Z"
-    },
-    {
-      "id": "3949cbb5-a954-8102-90c2-ec06af423ca2",
-      "例文": "I eat an apple every morning.（私は毎朝りんごを食べます。）",
-      "関連語": [
-        "fruit",
-        "orchard",
-        "cider"
-      ],
-      "イディオム": "the apple of one's eye（とても大切な人・もの）",
+      "id": "eng-000001",
+      "英単語": "apple",
       "Tips": "身近な果物の名前。発音は「アップル」ではなく /ˈæpəl/ に近い音。",
-      "レベル": 1,
+      "イディオム": "the apple of one's eye（とても大切な人・もの）",
       "タグ": [
+        "名詞"
+      ],
+      "レベル": 1,
+      "例文": "I eat an apple every morning.（私は毎朝りんごを食べます。）",
+      "品詞": [
         "名詞"
       ],
       "意味": "りんご",
-      "品詞": "名詞",
-      "英単語": "apple",
-      "_updated": "2026-07-05T10:06:00.000Z"
-    },
-    {
-      "id": "3949cbb5-a954-8102-a25f-ca5849fa3293",
-      "例文": "I ate an orange for breakfast.（朝食にオレンジを食べました。）",
       "関連語": [
         "fruit",
-        "citrus",
-        "juice"
-      ],
-      "イディオム": "compare apples and oranges（まったく違うものを比べる）",
-      "Tips": "果物のorangeと色のorangeは同じ単語。citrus（柑橘類）と一緒に覚えると便利です。",
-      "レベル": 1,
-      "タグ": [
-        "名詞",
-        "形容詞",
-        "多義語"
-      ],
-      "意味": "オレンジ、オレンジ色",
-      "品詞": "名詞",
-      "英単語": "orange",
-      "_updated": "2026-07-05T00:08:00.000Z"
+        "orchard",
+        "cider",
+        "pear"
+      ]
     },
     {
-      "id": "3959cbb5-a954-804b-b50e-e8fbefbb260a",
-      "例文": "I eat a boiled egg for breakfast.（私は朝食にゆで卵を食べます。）",
-      "関連語": [
-        "chicken",
-        "yolk",
-        "shell"
+      "id": "eng-000002",
+      "英単語": "orange",
+      "Tips": "果物のorangeと色のorangeは同じ単語。citrus（柑橘類）と一緒に覚えると便利です。",
+      "イディオム": "compare apples and oranges（まったく違うものを比べる）",
+      "タグ": [
+        "名詞",
+        "多義語",
+        "形容詞"
       ],
-      "イディオム": "put all your eggs in one basket（一つのことに全てを賭ける）",
-      "Tips": "eggは基本単語。復活祭のEaster eggや比喩表現でもよく使われます。",
       "レベル": 1,
+      "例文": "I ate an orange for breakfast.（私は朝食にオレンジを食べました。）\nShe wore an orange dress.（彼女はオレンジ色のドレスを着ていました。）",
+      "品詞": [
+        "名詞"
+      ],
+      "意味": "名：オレンジ、オレンジ色；形：オレンジ色の",
+      "関連語": [
+        "citrus",
+        "tangerine",
+        "mandarin",
+        "orangish"
+      ]
+    },
+    {
+      "id": "eng-000003",
+      "英単語": "grape",
+      "Tips": "grapeは一粒のぶどう、a bunch of grapesで「ぶどう一房」。乾燥したぶどうはraisinです。",
+      "イディオム": "sour grapes（負け惜しみ）",
       "タグ": [
         "名詞"
       ],
-      "意味": "卵",
-      "品詞": "名詞",
-      "英単語": "egg",
-      "_updated": "2026-07-07T11:49:00.000Z"
+      "レベル": 1,
+      "例文": "I bought a bunch of grapes at the market.（市場でぶどうを一房買いました。）",
+      "品詞": [
+        "名詞"
+      ],
+      "意味": "ぶどう",
+      "関連語": [
+        "raisin",
+        "vine",
+        "vineyard"
+      ]
     },
     {
-      "id": "3969cbb5-a954-803b-a54d-d756cb129001",
-      "例文": "Please drink enough water every day.（毎日十分な水を飲んでください。）",
-      "関連語": [
-        "drink",
-        "river",
-        "sea"
-      ],
-      "イディオム": "under water（水中で／借金などで苦しい状態で）",
-      "Tips": "waterは生活に欠かせない基本語。名詞では「水」、動詞では「水をやる」という意味にもなります。",
-      "レベル": 1,
+      "id": "eng-000004",
+      "英単語": "banana",
+      "Tips": "bananaは日本語とほぼ同じ意味。発音は「バナナ」より /bəˈnænə/ に近く、真ん中の-na-を強く読みます。",
+      "イディオム": "go bananas（気が変になる・熱狂する）",
       "タグ": [
-        "名詞",
+        "名詞"
+      ],
+      "レベル": 1,
+      "例文": "She added a banana to her smoothie.（彼女はスムージーにバナナを加えました。）",
+      "品詞": [
+        "名詞"
+      ],
+      "意味": "バナナ",
+      "関連語": [
+        "plantain",
+        "peel",
+        "ripe"
+      ]
+    },
+    {
+      "id": "eng-000005",
+      "英単語": "egg",
+      "Tips": "eggは基本単語。復活祭のEaster eggや比喩表現でもよく使われます。",
+      "イディオム": "put all your eggs in one basket（一つのことに全てを賭ける）",
+      "タグ": [
+        "名詞"
+      ],
+      "レベル": 1,
+      "例文": "I eat a boiled egg for breakfast.（私は朝食にゆで卵を食べます。）",
+      "品詞": [
+        "名詞"
+      ],
+      "意味": "卵",
+      "関連語": [
+        "ovum",
+        "yolk",
+        "shell",
+        "hatch"
+      ]
+    },
+    {
+      "id": "eng-000006",
+      "英単語": "water",
+      "Tips": "waterは生活に欠かせない基本語。名詞では「水」、動詞では「水をやる」という意味にもなります。",
+      "イディオム": "under water（水中で／借金などで苦しい状態で）",
+      "タグ": [
         "動詞",
+        "名詞",
         "多義語"
       ],
-      "意味": "水",
-      "品詞": "名詞",
-      "英単語": "water",
-      "_updated": "2026-07-07T11:54:00.000Z"
+      "レベル": 1,
+      "例文": "Please drink enough water every day.（毎日十分な水を飲んでください。）\nShe waters the plants every morning.（彼女は毎朝植物に水をやります。）",
+      "品詞": [
+        "名詞"
+      ],
+      "意味": "名：水；動：（植物など）に水をやる",
+      "関連語": [
+        "watery",
+        "waterproof",
+        "underwater",
+        "irrigate"
+      ]
     },
     {
-      "id": "3969cbb5-a954-819a-a709-f4f4578de746",
-      "例文": "The smell of coffee lingered in the room.",
-      "関連語": [
-        "remain",
-        "stay",
-        "delay"
-      ],
-      "イディオム": null,
+      "id": "eng-000007",
+      "英単語": "linger",
       "Tips": "『長く残る』イメージ。香り・感情・記憶などが消えずに残る時にも使う。",
-      "レベル": 3,
+      "イディオム": null,
       "タグ": [
         "動詞",
         "頻出"
       ],
+      "レベル": 3,
+      "例文": "The smell of coffee lingered in the room.（コーヒーの香りが部屋に長く残っていました。）",
+      "品詞": [
+        "動詞"
+      ],
       "意味": "（予想より長く）居残る、長引く、ぐずぐずする",
-      "品詞": "動詞",
-      "英単語": "linger",
-      "_updated": "2026-07-07T12:33:00.000Z"
+      "関連語": [
+        "delay",
+        "remain",
+        "stay"
+      ]
     },
     {
-      "id": "3979cbb5-a954-8166-b43e-d1d41c3cd142",
-      "例文": "Heavy rain hindered our progress.",
-      "関連語": [
-        "prevent",
-        "impede",
-        "obstruct"
-      ],
-      "イディオム": null,
-      "Tips": "『後ろへ引っ張って進行を妨げる』イメージで覚える。",
-      "レベル": 3,
+      "id": "eng-000008",
+      "英単語": "mock",
+      "Tips": "人や考えを「ばかにしてまねる」のがコアイメージです。名詞・形容詞的に「模造品」「模擬の」の意味でも使われます。",
+      "イディオム": "mock exam（模擬試験）",
       "タグ": [
         "動詞",
-        "頻出",
-        "類義語注意"
+        "多義語",
+        "形容詞",
+        "頻出"
       ],
-      "意味": "妨げる、阻害する",
-      "品詞": "動詞",
-      "英単語": "hinder",
-      "_updated": "2026-07-08T09:06:00.000Z"
-    },
-    {
-      "id": "3979cbb5-a954-81e0-b239-ef7c024d4156",
-      "例文": "They mocked his idea.（彼らは彼の考えをあざ笑いました。）",
+      "レベル": 3,
+      "例文": "They mocked his idea.（彼らは彼の考えをあざ笑いました。）\nWe took a mock exam yesterday.（私たちは昨日、模擬試験を受けました。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "動：あざ笑う、まねる；形：模擬の、偽の",
       "関連語": [
-        "ridicule",
+        "fake",
         "imitate",
         "mimic",
-        "fake"
-      ],
-      "イディオム": "mock exam（模擬試験）",
-      "Tips": "人や考えを「ばかにしてまねる」のがコアイメージです。名詞・形容詞的に「模造品」「模擬の」の意味でも使われます。",
-      "レベル": 3,
-      "タグ": [
-        "動詞",
-        "形容詞",
-        "頻出",
-        "多義語"
-      ],
-      "意味": "あざ笑う；まねる；模擬の",
-      "品詞": "動詞",
-      "英単語": "mock",
-      "_updated": "2026-07-08T03:06:00.000Z"
+        "ridicule"
+      ]
     },
     {
-      "id": "3989cbb5-a954-800e-994d-f90a9cf78ca3",
-      "例文": "The glass shattered on the floor.（そのグラスは床で粉々に割れました。）",
-      "関連語": [
-        "break",
-        "smash",
-        "crush",
-        "fracture"
-      ],
-      "イディオム": "shatter one's hopes（人の希望を打ち砕く）",
-      "Tips": "単に break するよりも、「細かく激しく砕ける」イメージです。希望・記録・静けさなどを打ち砕く比喩表現にも使われます。",
-      "レベル": 3,
+      "id": "eng-000009",
+      "英単語": "hinder",
+      "Tips": "『後ろへ引っ張って進行を妨げる』イメージで覚える。",
+      "イディオム": null,
       "タグ": [
         "動詞",
         "頻出",
         "類義語注意"
       ],
-      "意味": "粉々に砕く；打ち砕く",
-      "品詞": "動詞",
-      "英単語": "Shatter",
-      "_updated": "2026-07-09T02:50:00.000Z"
+      "レベル": 3,
+      "例文": "Heavy rain hindered our progress.（大雨が私たちの進行を妨げました。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "妨げる、阻害する",
+      "関連語": [
+        "impede",
+        "obstruct",
+        "prevent"
+      ]
     },
     {
-      "id": "3989cbb5-a954-8039-b332-f9ebd84d181b",
+      "id": "eng-000010",
+      "英単語": "Clarify",
+      "Tips": "clear（明確な）と同じ語源を持ち、「曇りを取り除いて明らかにする」と覚えると理解しやすいです。",
+      "イディオム": "clarify a point（要点を明確にする）",
+      "タグ": [
+        "動詞",
+        "派生語重要",
+        "頻出"
+      ],
+      "レベル": 3,
+      "例文": "Could you clarify your question?（質問をもう少し明確にしていただけますか。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "明確にする；はっきり説明する",
+      "関連語": [
+        "define",
+        "explain",
+        "illuminate",
+        "specify"
+      ]
+    },
+    {
+      "id": "eng-000011",
+      "英単語": "Mourn",
+      "Tips": "人の死だけでなく、失敗や失った機会などを深く悲しむ場合にも使います。目的語を直接取る用法と mourn for ～ の形があります。",
+      "イディオム": "mourn the loss of ～（～を失ったことを嘆く）",
+      "タグ": [
+        "動詞",
+        "頻出"
+      ],
+      "レベル": 3,
       "例文": "They mourned the loss of their friend.（彼らは友人を失ったことを嘆きました。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "嘆く；喪に服す",
       "関連語": [
         "grieve",
         "lament",
-        "sorrow",
-        "miss"
-      ],
-      "イディオム": "mourn the loss of ～（～を失ったことを嘆く）",
-      "Tips": "人の死だけでなく、失敗や失った機会などを深く悲しむ場合にも使います。目的語を直接取る用法と mourn for ～ の形があります。",
-      "レベル": 3,
-      "タグ": [
-        "動詞",
-        "頻出"
-      ],
-      "意味": "嘆く；喪に服す",
-      "品詞": "動詞",
-      "英単語": "Mourn",
-      "_updated": "2026-07-09T02:49:00.000Z"
+        "miss",
+        "sorrow"
+      ]
     },
     {
-      "id": "3989cbb5-a954-807b-bab1-d3d669a0c285",
-      "例文": "Could you clarify your question?（質問をもう少し明確にしていただけますか。）",
-      "関連語": [
-        "explain",
-        "define",
-        "specify",
-        "illuminate"
-      ],
-      "イディオム": "clarify a point（要点を明確にする）",
-      "Tips": "clear（明確な）と同じ語源を持ち、「曇りを取り除いて明らかにする」と覚えると理解しやすいです。",
-      "レベル": 3,
+      "id": "eng-000012",
+      "英単語": "Smash",
+      "Tips": "「スマッシュ（テニスなど）」のように、強く打つイメージから覚える。",
+      "イディオム": "smash into ～（～に激突する）",
       "タグ": [
         "動詞",
+        "名詞",
+        "多義語",
         "頻出",
-        "派生語重要"
+        "類義語注意"
       ],
-      "意味": "明確にする；はっきり説明する",
-      "品詞": "動詞",
-      "英単語": "Clarify",
-      "_updated": "2026-07-09T02:34:00.000Z"
-    },
-    {
-      "id": "3989cbb5-a954-81ff-b4e0-cef2da108457",
-      "例文": "He smashed the window with a hammer.（彼はハンマーで窓を打ち砕いた。）",
+      "レベル": 2,
+      "例文": "He smashed the window with a hammer.（彼はハンマーで窓を打ち砕きました。）\nThe new film was a smash.（その新作映画は大成功でした。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "動：強く打ち砕く、粉砕する；（記録など）を打ち破る；名：大成功、大ヒット",
       "関連語": [
         "break",
         "crush",
         "shatter"
-      ],
-      "イディオム": "smash into ～（～に激突する）",
-      "Tips": "「スマッシュ（テニスなど）」のように、強く打つイメージから覚える。",
-      "レベル": 2,
+      ]
+    },
+    {
+      "id": "eng-000013",
+      "英単語": "Shatter",
+      "Tips": "単に break するよりも、「細かく激しく砕ける」イメージです。希望・記録・静けさなどを打ち砕く比喩表現にも使われます。",
+      "イディオム": "shatter one's hopes（人の希望を打ち砕く）",
       "タグ": [
         "動詞",
         "頻出",
-        "多義語",
         "類義語注意"
       ],
-      "意味": "強く打ち砕く、粉砕する；大成功する",
-      "品詞": "動詞",
-      "英単語": "Smash",
-      "_updated": "2026-07-09T02:46:00.000Z"
+      "レベル": 3,
+      "例文": "The glass shattered on the floor.（そのグラスは床で粉々に割れました。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "粉々に砕く；打ち砕く",
+      "関連語": [
+        "break",
+        "crush",
+        "fracture",
+        "smash"
+      ]
     },
     {
-      "id": "39b9cbb5-a954-814d-8897-e737d5a81a67",
-      "例文": "Meeting my future business partner at that café was pure serendipity.（あのカフェで将来のビジネスパートナーに出会ったのは、まさに思いがけない幸運だった。）",
-      "関連語": [
-        "fortunate",
-        "coincidence",
-        "discovery"
-      ],
-      "イディオム": "a stroke of serendipity（思いがけない幸運）",
+      "id": "eng-000014",
+      "英単語": "serendipity",
       "Tips": "『偶然＋幸運な発見』を表す語。単なる coincidence よりも、好ましい結果や発見を含むニュアンスがある。",
-      "レベル": 4,
+      "イディオム": "a stroke of serendipity（思いがけない幸運）",
       "タグ": [
         "名詞"
       ],
+      "レベル": 4,
+      "例文": "Meeting my future business partner at that café was pure serendipity.（あのカフェで将来のビジネスパートナーに出会ったのは、まさに思いがけない幸運だった。）",
+      "品詞": [
+        "名詞"
+      ],
       "意味": "思いがけない幸運な発見、偶然による素敵な出来事",
-      "品詞": "名詞",
-      "英単語": "serendipity",
-      "_updated": "2026-07-12T02:24:00.000Z"
+      "関連語": [
+        "serendipitous",
+        "serendipitously",
+        "coincidence",
+        "chance"
+      ]
+    },
+    {
+      "id": "eng-000015",
+      "英単語": "Murmur",
+      "Tips": "「小声でつぶやく」が中心。名詞では低い話し声やざわめきを表す。whisper は息声、mutter は不満げなつぶやきになりやすい。",
+      "イディオム": "murmur to oneself（独り言をつぶやく）；a murmur of approval（賛同のざわめき）",
+      "タグ": [
+        "動詞",
+        "名詞",
+        "多義語",
+        "類義語注意"
+      ],
+      "レベル": 3,
+      "例文": "She murmured an apology to me.（彼女は私に小声で謝罪した。）\nA murmur ran through the crowd.（ざわめきが群衆の間に広がった。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "動：小声でつぶやく；名：つぶやき、低いざわめき",
+      "関連語": [
+        "murmuring",
+        "whisper",
+        "mutter",
+        "mumble"
+      ]
+    },
+    {
+      "id": "eng-000016",
+      "英単語": "Inhibit",
+      "Tips": "inhibit A from doing の形で「Aが～するのを妨げる」。心理・行動・成長・反応などを抑制する文脈で頻出。",
+      "イディオム": "inhibit A from doing（Aが～するのを妨げる）；inhibit growth（成長を抑制する）",
+      "タグ": [
+        "動詞",
+        "頻出",
+        "語法注意",
+        "派生語重要"
+      ],
+      "レベル": 4,
+      "例文": "Fear inhibited him from expressing his opinion.（恐怖のため、彼は自分の意見を述べられなかった。）",
+      "品詞": [
+        "動詞"
+      ],
+      "意味": "抑制する、妨げる",
+      "関連語": [
+        "inhibition",
+        "inhibitory",
+        "restrain",
+        "hinder"
+      ]
+    },
+    {
+      "id": "eng-000017",
+      "英単語": "Mobile",
+      "Tips": "語源は「動く」を表す move と同系。形容詞の「移動できる」が基本で、mobile phone のような複合語でも頻出。",
+      "イディオム": "mobile phone（携帯電話）；upwardly mobile（社会的に上昇志向の）",
+      "タグ": [
+        "形容詞",
+        "名詞",
+        "多義語",
+        "派生語重要"
+      ],
+      "レベル": 3,
+      "例文": "The clinic provides mobile medical services.（その診療所は移動式の医療サービスを提供している。）\nShe called me on her mobile.（彼女は携帯電話で私に電話した。）",
+      "品詞": [
+        "形容詞"
+      ],
+      "意味": "形：移動できる、機動性のある；名：携帯電話",
+      "関連語": [
+        "mobility",
+        "mobilize",
+        "movable",
+        "portable"
+      ]
     }
   ]
 }
