@@ -1,16 +1,17 @@
 import { useMemo, useState } from 'react'
 import type { Config, WordsFile } from '../lib/types'
 import { matchesQuery, visibleDetailFields } from '../lib/schema'
-import { notionPageUrl } from '../lib/notionUrl'
 import { FieldValueView } from '../components/FieldValueView'
 
 /** 辞書モード：一覧・検索・タップで詳細（存在する列だけ表示）。 */
 export function Dictionary({
   data,
   config,
+  subjectLabel,
 }: {
   data: WordsFile
   config: Config
+  subjectLabel: string
 }) {
   const [query, setQuery] = useState('')
   const [openId, setOpenId] = useState<string | null>(null)
@@ -28,7 +29,7 @@ export function Dictionary({
         aria-label="単語を検索"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="検索（英単語・意味・関連語・イディオム）"
+        placeholder={`${subjectLabel}を検索（単語・意味・関連語）`}
         className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2 outline-none focus:border-blue-500 dark:border-slate-600 dark:bg-slate-800"
       />
       <p className="mt-2 text-sm text-slate-500">{results.length} 件</p>
@@ -39,7 +40,6 @@ export function Dictionary({
           const secondary = w[config.dictionary.secondary]
           const open = openId === w.id
           const detail = visibleDetailFields(w, data.meta.fields, config)
-          const notionUrl = notionPageUrl(w.id)
           return (
             <li
               key={w.id}
@@ -71,16 +71,6 @@ export function Dictionary({
                       </div>
                     ))}
                   </dl>
-                  {notionUrl && (
-                    <a
-                      href={notionUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-block text-sm text-blue-600 hover:underline dark:text-blue-400"
-                    >
-                      🔗 Notion で開く（編集・削除）
-                    </a>
-                  )}
                 </div>
               )}
             </li>
