@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-07-09T04:33:43.663Z",
+    "generatedAt": "2026-07-12T04:03:24.957Z",
     "source": "notion",
-    "count": 13,
+    "count": 16,
     "fields": [
       {
         "key": "例文",
@@ -276,6 +276,53 @@
       "品詞": "動詞",
       "英単語": "Smash",
       "_updated": "2026-07-09T02:46:00.000Z"
+    },
+    {
+      "id": "39b9cbb5-a954-805c-b749-fe94dc524b59",
+      "例文": null,
+      "関連語": [],
+      "イディオム": null,
+      "Tips": null,
+      "レベル": null,
+      "タグ": [],
+      "意味": null,
+      "品詞": null,
+      "英単語": null,
+      "_updated": "2026-07-12T01:16:00.000Z"
+    },
+    {
+      "id": "39b9cbb5-a954-80b0-88b5-e34a7ae53521",
+      "例文": null,
+      "関連語": [],
+      "イディオム": null,
+      "Tips": null,
+      "レベル": null,
+      "タグ": [],
+      "意味": null,
+      "品詞": null,
+      "英単語": null,
+      "_updated": "2026-07-12T01:16:00.000Z"
+    },
+    {
+      "id": "39b9cbb5-a954-814d-8897-e737d5a81a67",
+      "例文": "Meeting my future business partner at that café was pure serendipity.（あのカフェで将来のビジネスパートナーに出会ったのは、まさに思いがけない幸運だった。）",
+      "関連語": [
+        "fortunate",
+        "coincidence",
+        "discovery"
+      ],
+      "イディオム": "a stroke of serendipity（思いがけない幸運）",
+      "Tips": "『偶然＋幸運な発見』を表す語。単なる coincidence よりも、好ましい結果や発見を含むニュアンスがある。",
+      "レベル": 4,
+      "タグ": [
+        "抽象名詞",
+        "ポジティブ",
+        "上級語彙"
+      ],
+      "意味": "思いがけない幸運な発見、偶然による素敵な出来事",
+      "品詞": "名詞",
+      "英単語": "serendipity",
+      "_updated": "2026-07-12T02:24:00.000Z"
     }
   ]
 }
