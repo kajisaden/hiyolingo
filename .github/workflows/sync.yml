@@ -21,17 +21,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.SYNC_DEPLOY_KEY }}
+
       - name: 60日無活動による自動停止を防ぐ（セルフ再有効化）
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/sync.yml/enable"
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Googleスプレッドシートを同期
         env:
           GOOGLE_SHEETS_ID: 1yrRhWC3SZ2KMcfYV2VkMpAahDJQKSeAE5EOHvGmcgv4
         run: node scripts/sync-sheets.mjs
+
       - name: 差分があればコミット
         run: |
           if [ -n "$(git status --porcelain data/words.json data/kobun.json)" ]; then
