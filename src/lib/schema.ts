@@ -16,7 +16,7 @@ export function isEmpty(value: FieldValue | undefined): boolean {
  * 詳細画面に出すフィールドを順序つきで決める。
  * - hiddenFields は除外
  * - 空の値は除外（NULL 省略）
- * - meta.fields の順序を尊重（＝Notion の列順に自動追従）
+ * - meta.fields の順序を尊重（＝スプレッドシートの列順に自動追従）
  */
 export function visibleDetailFields(
   word: Word,
