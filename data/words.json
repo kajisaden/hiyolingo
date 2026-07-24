@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generatedAt": "2026-07-22T01:10:22.160Z",
+    "generatedAt": "2026-07-24T07:20:38.693Z",
     "source": "google-sheets",
     "subject": "english",
-    "count": 17,
+    "count": 20,
     "fields": [
       {
         "key": "英単語",
@@ -42,7 +42,11 @@
         "type": "multi_select"
       }
     ],
-    "warnings": []
+    "warnings": [
+      "inflict: id が空のため行番号から仮IDを生成しました",
+      "impair: id が空のため行番号から仮IDを生成しました",
+      "hinder: id が空のため行番号から仮IDを生成しました"
+    ]
   },
   "words": [
     {
@@ -424,6 +428,42 @@
         "movable",
         "portable"
       ]
+    },
+    {
+      "id": "sheet-row-19",
+      "英単語": "inflict",
+      "Tips": null,
+      "イディオム": null,
+      "タグ": [],
+      "レベル": null,
+      "例文": null,
+      "品詞": [],
+      "意味": null,
+      "関連語": []
+    },
+    {
+      "id": "sheet-row-20",
+      "英単語": "impair",
+      "Tips": null,
+      "イディオム": null,
+      "タグ": [],
+      "レベル": null,
+      "例文": null,
+      "品詞": [],
+      "意味": null,
+      "関連語": []
+    },
+    {
+      "id": "sheet-row-21",
+      "英単語": "hinder",
+      "Tips": null,
+      "イディオム": null,
+      "タグ": [],
+      "レベル": null,
+      "例文": null,
+      "品詞": [],
+      "意味": null,
+      "関連語": []
     }
   ]
 }
